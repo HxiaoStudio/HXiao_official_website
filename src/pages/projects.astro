@@ -1,0 +1,236 @@
+---
+// projects.astro - 项目页面
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const features = [
+  { icon: '🎨', name: '可视化色彩分析', desc: '可拖动取色点，支持 HSB/LAB/HSL/CMYK/RGB' },
+  { icon: '✨', name: '智能配色生成', desc: '5种专业方案（同色系/邻近色/互补色/分离补色/双补色）' },
+  { icon: '⭐', name: '配色方案收藏', desc: '收藏管理，支持 JSON/ASE/图片导出' },
+  { icon: '📚', name: '内置色彩库', desc: '13套开源方案，661组色卡' },
+  { icon: '👁', name: '配色预览', desc: '9种场景（混合/UI/网页/插画/排版/品牌/海报/图案/杂志）' },
+  { icon: '📊', name: '明度分析', desc: '9级明度分区，直方图可视化' },
+  { icon: '🌈', name: '渐变生成', desc: '双色/单色梯度，4种颜色空间插值' },
+  { icon: '🌐', name: '多语言支持', desc: '简中/繁中/英/日/法/俄' },
+  { icon: '🌓', name: '明暗主题', desc: '深色/浅色模式切换' },
+];
+
+const stats = [
+  { value: 6, suffix: '+', label: '配色方案' },
+  { value: 347, suffix: '+', label: '色卡组' },
+  { value: 4, suffix: '+', label: '预览场景' },
+  { value: 661, suffix: ' 组', label: '内置色卡' },
+];
+
+const story = [
+  { phase: '最初的契机', desc: '想要分析优秀摄影师作品的色相和明度特点，市面上缺乏好用的一站式工具' },
+  { phase: '不断演进', desc: '从色彩分析+明度分析，逐步发展为完整的本地配色解决方案' },
+  { phase: '参考与致敬', desc: '借鉴了众多优秀的在线配色工具' },
+];
+---
+
+<BaseLayout title="项目 - 取色卡 Color Card - 浮晓 HXiao">
+  <!-- 页面标题 -->
+  <section class="py-16 md:py-24 bg-bg-main">
+    <div class="container-main text-center">
+      <h1 class="text-3xl md:text-4xl font-serif-cn font-bold mb-6 fade-in-up">
+        项目
+      </h1>
+      <p class="text-text-secondary max-w-2xl mx-auto fade-in-up delay-1">
+        我们的开源创作
+      </p>
+    </div>
+  </section>
+
+  <!-- 项目概览 -->
+  <section class="section-padding bg-bg-sub">
+    <div class="container-main max-w-4xl">
+      <div class="bg-bg-main rounded-2xl p-8 md:p-12 border border-border/20 fade-in-up">
+        <div class="flex flex-col md:flex-row md:items-start gap-6">
+          <div class="flex-1">
+            <h2 class="text-2xl font-serif-cn font-bold mb-4">取色卡 Color Card</h2>
+            <p class="text-text-secondary mb-6">
+              一站式色彩工具，为摄影师和设计师打造。完全免费、无需联网、无需注册、隐私安全。
+            </p>
+            
+            <div class="space-y-3 text-sm">
+              <div class="flex items-center gap-2">
+                <span class="text-border">●</span>
+                <span>开源协议：GPL-3.0</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-border">●</span>
+                <span>目标用户：摄影师、设计师</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-border">●</span>
+                <span>支持平台：Mac M系列 / Win 10/11 X64</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="flex flex-col gap-3">
+            <a 
+              href="https://qingshangongzai.github.io/Color_Card" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              class="btn-glow px-6 py-3 bg-accent text-text-primary font-medium rounded-full text-center hover:bg-accent/80 transition-all"
+            >
+              访问官网
+            </a>
+            <a 
+              href="https://github.com/QingshanGongzai/Color_Card" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              class="px-6 py-3 border border-border text-text-primary font-medium rounded-full text-center hover:border-accent transition-all"
+            >
+              GitHub 仓库
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 功能亮点 -->
+  <section class="section-padding bg-bg-main">
+    <div class="container-main">
+      <h2 class="text-2xl md:text-3xl font-serif-cn text-center mb-12 fade-in-up">
+        9 大功能亮点
+      </h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {features.map((feature, index) => (
+          <div class="card-hover bg-bg-sub rounded-xl p-6 border border-border/20 fade-in-up" style={`transition-delay: ${index * 0.05}s`}>
+            <span class="text-3xl">{feature.icon}</span>
+            <h3 class="text-lg font-semibold mt-4 mb-2">{feature.name}</h3>
+            <p class="text-sm text-text-secondary">{feature.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 数据展示 -->
+  <section class="py-16 bg-bg-sub">
+    <div class="container-main">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto text-center">
+        {stats.map((stat, index) => (
+          <div class="fade-in-up" style={`transition-delay: ${index * 0.1}s`}>
+            <div class="text-3xl md:text-4xl font-inter font-bold text-accent">
+              <span class="counter" data-target={stat.value}>0</span>{stat.suffix}
+            </div>
+            <p class="text-sm text-text-secondary mt-2">{stat.label}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 下载入口 -->
+  <section class="section-padding bg-bg-main">
+    <div class="container-main max-w-3xl text-center">
+      <h2 class="text-2xl md:text-3xl font-serif-cn mb-8 fade-in-up">
+        下载取色卡
+      </h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 fade-in-up delay-1">
+        <div class="bg-bg-sub rounded-xl p-8 border border-border/20 card-hover">
+          <div class="text-4xl mb-4">🍎</div>
+          <h3 class="font-semibold mb-2">Mac 版</h3>
+          <p class="text-sm text-text-secondary mb-4">支持 M系列芯片</p>
+          <a 
+            href="https://github.com/QingshanGongzai/Color_Card/releases" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            class="btn-glow inline-block px-6 py-2 bg-accent text-text-primary rounded-full text-sm font-medium hover:bg-accent/80 transition-all"
+          >
+            下载安装包
+          </a>
+        </div>
+        
+        <div class="bg-bg-sub rounded-xl p-8 border border-border/20 card-hover">
+          <div class="text-4xl mb-4">🪟</div>
+          <h3 class="font-semibold mb-2">Windows 版</h3>
+          <p class="text-sm text-text-secondary mb-4">支持 Win 10/11 X64</p>
+          <a 
+            href="https://github.com/QingshanGongzai/Color_Card/releases" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            class="btn-glow inline-block px-6 py-2 bg-accent text-text-primary rounded-full text-sm font-medium hover:bg-accent/80 transition-all"
+          >
+            下载安装包
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 开源与版权 -->
+  <section class="py-16 bg-bg-sub">
+    <div class="container-main max-w-3xl text-center">
+      <blockquote class="text-lg font-serif-cn italic text-text-primary mb-4 fade-in-up">
+        取色卡采用 <strong>GPL-3.0</strong> 开源协议，完全免费，无需联网，无需注册，隐私安全。
+      </blockquote>
+      <p class="text-text-secondary fade-in-up delay-1">
+        我们相信，优秀的工具应该人人可用。
+      </p>
+    </div>
+  </section>
+
+  <!-- 项目故事 -->
+  <section class="section-padding bg-bg-main">
+    <div class="container-main max-w-3xl">
+      <h2 class="text-2xl md:text-3xl font-serif-cn text-center mb-12 fade-in-up">
+        项目故事
+      </h2>
+      
+      <div class="space-y-6">
+        {story.map((item, index) => (
+          <div class="flex items-start gap-4 fade-in-up" style={`transition-delay: ${index * 0.1}s`}>
+            <span class="flex-shrink-0 w-8 h-8 rounded-full bg-accent-sub/30 flex items-center justify-center text-accent text-sm font-medium">
+              {index + 1}
+            </span>
+            <div>
+              <h3 class="font-semibold mb-1">{item.phase}</h3>
+              <p class="text-sm text-text-secondary">{item.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  // 数字计数动效
+  const counters = document.querySelectorAll('.counter');
+  
+  const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target as HTMLElement;
+        const target = parseInt(el.dataset.target || '0');
+        const duration = 1500;
+        const startTime = performance.now();
+        
+        function update(currentTime: number) {
+          const elapsed = currentTime - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          const easeOut = 1 - Math.pow(1 - progress, 3);
+          el.textContent = String(Math.floor(target * easeOut));
+          
+          if (progress < 1) {
+            requestAnimationFrame(update);
+          } else {
+            el.textContent = String(target);
+          }
+        }
+        
+        requestAnimationFrame(update);
+        counterObserver.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+  
+  counters.forEach(counter => counterObserver.observe(counter));
+</script>

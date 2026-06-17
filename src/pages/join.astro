@@ -1,0 +1,300 @@
+---
+// join.astro - 共创招募页面
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const roles = [
+  { icon: '🎬', name: '剪辑', you: '后期制作交给你', we: '原始素材 + 创作自由' },
+  { icon: '💡', name: '策划', you: '创意构思交给你', we: '执行支持 + 资源配合' },
+  { icon: '💻', name: '开发', you: '程序编写交给你', we: '开源社区 + 技术讨论' },
+  { icon: '📋', name: '统筹', you: '甚至"负责人"也可以让给你', we: '完全信任 + 决策权' },
+];
+
+const benefits = [
+  { title: '创作署名权', desc: '所有发布成品须包含清晰署名（强制性）' },
+  { title: '提案权与表决权', desc: '参与全体成员会议，对重大事务有发言权' },
+  { title: '平等地位', desc: '所有成员地位平等，角色与责任不同' },
+  { title: '晋升通道', desc: '普通成员可通过贡献晋升为核心成员' },
+  { title: '版权保护', desc: '遵循分层版权制度，个人素材版权受保护' },
+];
+
+const process = [
+  '认同价值观',
+  '提交申请',
+  '核心小组审核',
+  '过半同意',
+  '正式成为普通成员',
+  '持续贡献',
+  '提名',
+  '全体成员会议同意',
+  '核心成员',
+];
+
+const faqs = [
+  { q: '需要投入多少时间？', a: '没有硬性要求，按你的节奏来。项目制协作，灵活参与。' },
+  { q: '有报酬吗？', a: '账号非营利，暂无报酬。但如果未来有收益，会按贡献分配。财务每季度公开。' },
+  { q: '我不确定能做什么？', a: '先聊聊，也许你会发现自己没意识到的能力。我们看重的是价值观的契合。' },
+  { q: '加入后不想做了怎么办？', a: '可随时自愿退出，提前告知并完成工作交接即可。' },
+  { q: '我的作品版权怎么算？', a: '遵循分层版权制度，你的个人素材版权始终属于你。详见章程第十五条。' },
+  { q: '署名是怎么规定的？', a: '所有发布成品必须包含完整署名，包括核心创作人员、外部投稿者、素材来源声明。详见章程第十六条。' },
+];
+---
+
+<BaseLayout title="共创招募 - 浮晓 HXiao">
+  <!-- 招募宣言 -->
+  <section class="py-16 md:py-24 bg-bg-main text-center">
+    <div class="container-main max-w-3xl">
+      <h1 class="text-3xl md:text-4xl font-serif-cn font-bold mb-8 fade-in-up">
+        共创招募
+      </h1>
+      <blockquote class="text-lg md:text-xl font-serif-cn italic text-text-primary leading-relaxed fade-in-up delay-1">
+        一个人构想的世界是单薄的，一个人的能力是有限的。<br />
+        所以我发出了这份邀请——<br />
+        我们想寻找到与我们价值观相近的人，与我们一同发光发热。
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- 价值观确认 -->
+  <section class="section-padding bg-bg-sub">
+    <div class="container-main max-w-3xl">
+      <h2 class="text-2xl font-serif-cn text-center mb-8 fade-in-up">我们的价值观</h2>
+      <div class="bg-bg-main rounded-xl p-8 border border-border/20 fade-in-up delay-1">
+        <ul class="space-y-4">
+          <li class="flex items-start gap-3">
+            <span class="text-accent mt-1">●</span>
+            <span>账号将长期保持<strong>非营利、纯公益</strong>的性质</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-accent mt-1">●</span>
+            <span>所有活动基于热爱与共鸣</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-accent mt-1">●</span>
+            <span>传播积极健康的网络文化</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 我们的制度 -->
+  <section class="section-padding bg-bg-main">
+    <div class="container-main max-w-4xl">
+      <h2 class="text-2xl font-serif-cn text-center mb-4 fade-in-up">我们的制度</h2>
+      <p class="text-center text-text-secondary mb-8 fade-in-up delay-1">
+        我们不是一个随意的群组，而是一个有规则、有温度的共同体。
+      </p>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {[
+          ['民主协作', '所有成员地位平等，共同决策'],
+          ['扁平管理', '全体成员会议 + 核心成员小组 + 项目小组'],
+          ['项目负责制', '任何成员均可发起项目，享有创作自主权'],
+          ['财务公开', '每季度公布收支概要'],
+          ['决策透明', '会议决议记录并公开'],
+        ].map(([title, desc], i) => (
+          <div class="bg-bg-sub rounded-xl p-5 border border-border/20 fade-in-up" style={`transition-delay: ${i * 0.05}s`}>
+            <h3 class="font-semibold text-accent mb-1">{title}</h3>
+            <p class="text-sm text-text-secondary">{desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 角色需求 -->
+  <section class="section-padding bg-bg-sub">
+    <div class="container-main">
+      <h2 class="text-2xl font-serif-cn text-center mb-8 fade-in-up">我们需要的角色</h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-4xl mx-auto">
+        {roles.map((role, i) => (
+          <div class="card-hover bg-bg-main rounded-xl p-6 border border-border/20 text-center fade-in-up" style={`transition-delay: ${i * 0.1}s`}>
+            <span class="text-4xl">{role.icon}</span>
+            <h3 class="text-lg font-semibold mt-4 mb-4">{role.name}</h3>
+            <p class="text-sm text-text-secondary mb-2"><strong>你可以做的：</strong>{role.you}</p>
+            <p class="text-sm text-accent"><strong>我们提供：</strong>{role.we}</p>
+          </div>
+        ))}
+      </div>
+      
+      <p class="text-center text-text-secondary mt-8 max-w-2xl mx-auto fade-in-up">
+        在这里，身份不重要，能力大小不重要，重要的是我们都认可同一份价值观。
+      </p>
+    </div>
+  </section>
+
+  <!-- 成员权益 -->
+  <section class="section-padding bg-bg-main">
+    <div class="container-main max-w-4xl">
+      <h2 class="text-2xl font-serif-cn text-center mb-8 fade-in-up">成员权益</h2>
+      
+      <div class="space-y-4">
+        {benefits.map((b, i) => (
+          <div class="flex items-start gap-4 bg-bg-sub rounded-xl p-5 border border-border/20 fade-in-up" style={`transition-delay: ${i * 0.05}s`}>
+            <span class="flex-shrink-0 w-8 h-8 rounded-full bg-success/20 flex items-center justify-center text-success text-sm">✓</span>
+            <div>
+              <h3 class="font-semibold mb-1">{b.title}</h3>
+              <p class="text-sm text-text-secondary">{b.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 加入流程 -->
+  <section class="section-padding bg-bg-sub">
+    <div class="container-main max-w-4xl">
+      <h2 class="text-2xl font-serif-cn text-center mb-8 fade-in-up">加入流程</h2>
+      
+      <div class="flex flex-wrap justify-center gap-2 mb-8 fade-in-up delay-1">
+        {process.map((step, i) => (
+          <>
+            <span class="px-3 py-2 bg-bg-main rounded-lg border border-border/20 text-sm font-medium">
+              {step}
+            </span>
+            {i < process.length - 1 && <span class="text-accent self-center">→</span>}
+          </>
+        ))}
+      </div>
+      
+      <p class="text-center text-sm text-text-secondary fade-in-up delay-2">
+        电子确认环节：申请人须在线签署《共创伙伴加入确认书》，确认后方可正式加入。
+      </p>
+    </div>
+  </section>
+
+  <!-- 加入申请书 -->
+  <section class="section-padding bg-bg-main">
+    <div class="container-main max-w-3xl">
+      <h2 class="text-2xl font-serif-cn text-center mb-4 fade-in-up">共创伙伴加入申请书</h2>
+      <p class="text-center text-text-secondary mb-8 fade-in-up delay-1">
+        这份表格不是考试，而是一份真诚的邀请。
+      </p>
+      
+      <div class="bg-bg-sub rounded-2xl p-8 border border-border/20 fade-in-up delay-2">
+        <!-- 一、基本信息 -->
+        <h3 class="font-semibold text-lg mb-4">一、基本信息</h3>
+        <div class="space-y-4 mb-8">
+          <div>
+            <label class="block text-sm font-medium mb-1">你的昵称</label>
+            <input type="text" class="w-full px-4 py-2 bg-bg-main border border-border/30 rounded-lg focus:border-accent focus:outline-none" placeholder="_______________" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-1">联系方式</label>
+            <input type="text" class="w-full px-4 py-2 bg-bg-main border border-border/30 rounded-lg focus:border-accent focus:outline-none" placeholder="QQ / 微信 / 邮箱 / B站 / 电话（至少一项）" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-1">你常用的平台</label>
+            <input type="text" class="w-full px-4 py-2 bg-bg-main border border-border/30 rounded-lg focus:border-accent focus:outline-none" placeholder="B站 / GitHub / 小红书 / 微博 / 其他" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-1">想加入的角色方向</label>
+            <input type="text" class="w-full px-4 py-2 bg-bg-main border border-border/30 rounded-lg focus:border-accent focus:outline-none" placeholder="剪辑 / 策划 / 开发 / 拍摄 / 设计 / 配音 / 文案 / 统筹 / 还没想好" />
+          </div>
+        </div>
+        
+        <!-- 二、关于你 -->
+        <h3 class="font-semibold text-lg mb-4">二、关于你</h3>
+        <div class="space-y-4 mb-8">
+          <div>
+            <label class="block text-sm font-medium mb-1">1. 简单介绍一下你自己</label>
+            <textarea class="w-full px-4 py-2 bg-bg-main border border-border/30 rounded-lg focus:border-accent focus:outline-none h-24 resize-none" placeholder="几句话就好，说说你的兴趣、日常..."></textarea>
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-1">2. 你擅长什么，或者想尝试什么？</label>
+            <textarea class="w-full px-4 py-2 bg-bg-main border border-border/30 rounded-lg focus:border-accent focus:outline-none h-24 resize-none" placeholder="不需要很厉害，诚实就好..."></textarea>
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-1">3. 你有自己的作品或主页吗？（选填）</label>
+            <input type="text" class="w-full px-4 py-2 bg-bg-main border border-border/30 rounded-lg focus:border-accent focus:outline-none" placeholder="B站空间 / GitHub / 个人博客..." />
+          </div>
+        </div>
+        
+        <!-- 三、关于浮晓 -->
+        <h3 class="font-semibold text-lg mb-4">三、关于浮晓</h3>
+        <div class="space-y-4 mb-8">
+          <div>
+            <label class="block text-sm font-medium mb-1">4. 你从哪里认识浮晓的？</label>
+            <textarea class="w-full px-4 py-2 bg-bg-main border border-border/30 rounded-lg focus:border-accent focus:outline-none h-20 resize-none" placeholder="某个视频？某篇文章？朋友的推荐？"></textarea>
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-1">5. 浮晓最打动你的地方是什么？</label>
+            <textarea class="w-full px-4 py-2 bg-bg-main border border-border/30 rounded-lg focus:border-accent focus:outline-none h-20 resize-none" placeholder="一句话或一件事..."></textarea>
+          </div>
+        </div>
+        
+        <!-- 四、确认事项 -->
+        <h3 class="font-semibold text-lg mb-4">四、确认事项</h3>
+        <div class="space-y-3 mb-8">
+          {[
+            '我认同「渺小但绝不停止思考与远望」的精神内核。',
+            '我理解浮晓是一个非营利、纯公益的创作共同体，现阶段没有任何报酬。',
+            '我愿意尊重并遵守《浮游亦晓工作室章程（临时）》及相关制度。',
+            '我承诺所提交的信息真实，并愿意在后续沟通中保持坦诚。',
+          ].map((text, i) => (
+            <label class="flex items-start gap-3 cursor-pointer">
+              <input type="checkbox" class="mt-1 w-4 h-4 rounded border-border accent-accent" />
+              <span class="text-sm">{text}</span>
+            </label>
+          ))}
+        </div>
+        
+        <!-- 提交说明 -->
+        <div class="bg-bg-main rounded-xl p-6 border border-accent/30 text-center">
+          <p class="text-sm text-text-secondary mb-2">
+            <strong>提交方式：</strong>请将填写后的申请书发送至
+          </p>
+          <a href="mailto:hxiao_studio@163.com" class="text-lg text-accent font-semibold hover:underline">
+            hxiao_studio@163.com
+          </a>
+          <p class="text-xs text-text-secondary mt-4">
+            我们会在收到申请后尽快与你联系，也许还会约一次简单的线上聊天——不是面试，只是彼此认识一下。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section-padding bg-bg-sub">
+    <div class="container-main max-w-3xl">
+      <h2 class="text-2xl font-serif-cn text-center mb-8 fade-in-up">常见问题</h2>
+      
+      <div class="space-y-4">
+        {faqs.map((faq, i) => (
+          <details class="bg-bg-main rounded-xl border border-border/20 fade-in-up" style={`transition-delay: ${i * 0.05}s`}>
+            <summary class="px-6 py-4 cursor-pointer font-medium hover:text-accent transition-colors">
+              {faq.q}
+            </summary>
+            <div class="px-6 pb-4 text-sm text-text-secondary">
+              {faq.a}
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 联系方式 -->
+  <section class="py-16 bg-bg-main text-center">
+    <div class="container-main max-w-2xl">
+      <h2 class="text-xl font-serif-cn mb-4 fade-in-up">还有其他问题？</h2>
+      <p class="text-text-secondary mb-6 fade-in-up delay-1">
+        可通过以下方式与我们联系
+      </p>
+      <div class="flex flex-wrap justify-center gap-4 fade-in-up delay-2">
+        <a href="https://space.bilibili.com/1232406878" target="_blank" rel="noopener noreferrer" class="px-4 py-2 bg-bg-sub rounded-full border border-border/20 hover:border-accent text-sm">
+          B站私信
+        </a>
+        <span class="px-4 py-2 bg-bg-sub rounded-full border border-border/20 text-sm">
+          微信公众号：HXiao_Studio
+        </span>
+        <a href="mailto:hxiao_studio@163.com" class="px-4 py-2 bg-bg-sub rounded-full border border-border/20 hover:border-accent text-sm">
+          hxiao_studio@163.com
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

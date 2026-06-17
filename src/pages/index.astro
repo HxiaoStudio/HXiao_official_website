@@ -1,0 +1,192 @@
+---
+// index.astro - 首页
+import BaseLayout from '../layouts/BaseLayout.astro';
+import StarCanvas from '../components/StarCanvas.astro';
+---
+
+<BaseLayout title="浮晓 HXiao - 生如蜉蝣，却执意丈量天光的刻度">
+  <!-- Hero 区域 -->
+  <section class="relative min-h-screen flex items-center justify-center overflow-hidden bg-bg-main">
+    <StarCanvas />
+    
+    <!-- 视差背景层 -->
+    <div id="parallax-bg" class="absolute inset-0 pointer-events-none"></div>
+    
+    <!-- Hero 内容 -->
+    <div class="relative z-10 text-center px-6 max-w-4xl mx-auto">
+      <!-- 主标语 -->
+      <h1 class="text-3xl md:text-5xl lg:text-6xl font-serif-cn font-bold text-text-primary mb-6 opacity-0 animate-fade-in">
+        生如蜉蝣，却执意丈量天光的刻度
+      </h1>
+      
+      <!-- 副标语 -->
+      <p class="text-lg md:text-xl lg:text-2xl font-serif-cn text-text-secondary mb-12 opacity-0 animate-fade-in" style="animation-delay: 0.3s;">
+        仰望星海，亦于深渊回响中听见自己的心跳
+      </p>
+      
+      <!-- CTA 按钮组 -->
+      <div class="flex flex-wrap justify-center gap-4 opacity-0 animate-fade-in" style="animation-delay: 0.6s;">
+        <a 
+          href="https://www.bilibili.com/video/BV1FzsNzbE9g" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          class="btn-glow px-6 py-3 bg-accent text-text-primary font-medium rounded-full hover:bg-accent/80 transition-all"
+        >
+          观看视频
+        </a>
+        <a 
+          href="/about" 
+          class="btn-glow px-6 py-3 border-2 border-accent text-text-primary font-medium rounded-full hover:bg-accent/20 transition-all"
+        >
+          了解我们
+        </a>
+        <a 
+          href="/join" 
+          class="btn-glow px-6 py-3 bg-text-primary text-bg-main font-medium rounded-full hover:bg-text-primary/90 transition-all"
+        >
+          加入共创
+        </a>
+      </div>
+    </div>
+    
+    <!-- 滚动提示 -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+      <svg class="w-6 h-6 text-text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+      </svg>
+    </div>
+  </section>
+
+  <!-- 理念卡片区 -->
+  <section class="section-padding bg-bg-sub">
+    <div class="container-main">
+      <h2 class="text-2xl md:text-3xl font-serif-cn text-center mb-12 fade-in-up">
+        我们的理念
+      </h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+        <!-- 卡片 1 -->
+        <div class="card-hover bg-bg-main rounded-xl p-8 border border-border/20 fade-in-up delay-1">
+          <div class="text-3xl mb-4">🦗</div>
+          <h3 class="text-xl font-serif-cn font-semibold mb-3">蜉蝣之浮</h3>
+          <p class="text-text-secondary">
+            记录微小日常的脉搏。我们相信，最平凡的瞬间也值得被认真对待。
+          </p>
+        </div>
+        
+        <!-- 卡片 2 -->
+        <div class="card-hover bg-bg-main rounded-xl p-8 border border-border/20 fade-in-up delay-2">
+          <div class="text-3xl mb-4">🌅</div>
+          <h3 class="text-xl font-serif-cn font-semibold mb-3">知晓之晓</h3>
+          <p class="text-text-secondary">
+            探寻广阔世界的模样。保持好奇，永不停止对未知的追问。
+          </p>
+        </div>
+        
+        <!-- 卡片 3 -->
+        <div class="card-hover bg-bg-main rounded-xl p-8 border border-border/20 fade-in-up delay-3">
+          <div class="text-3xl mb-4">💭</div>
+          <h3 class="text-xl font-serif-cn font-semibold mb-3">不停止思考</h3>
+          <p class="text-text-secondary">
+            我们虽然渺小，但绝不停止思考与远望。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 最新动态区 -->
+  <section class="section-padding bg-bg-main">
+    <div class="container-main">
+      <h2 class="text-2xl md:text-3xl font-serif-cn text-center mb-12 fade-in-up">
+        最新动态
+      </h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- 最新视频 -->
+        <div class="fade-in-up delay-1">
+          <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
+            <span class="w-2 h-2 bg-accent rounded-full"></span>
+            最新视频
+          </h3>
+          <a 
+            href="https://www.bilibili.com/video/BV1FzsNzbE9g" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            class="block bg-bg-sub rounded-xl overflow-hidden border border-border/20 hover:border-accent/50 transition-all"
+          >
+            <div class="aspect-video bg-bg-sub flex items-center justify-center">
+              <img 
+                src="https://i0.hdslb.com/bfs/archive/cover/BV1FzsNzbE9g.jpg" 
+                alt="视频封面" 
+                class="w-full h-full object-cover"
+                loading="lazy"
+                onerror="this.style.display='none'"
+              />
+            </div>
+            <div class="p-4">
+              <h4 class="font-medium mb-2 line-clamp-2">播放量最高作品</h4>
+              <p class="text-sm text-text-secondary">点击观看 B站视频 →</p>
+            </div>
+          </a>
+        </div>
+        
+        <!-- 项目更新 -->
+        <div class="fade-in-up delay-2">
+          <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
+            <span class="w-2 h-2 bg-success rounded-full"></span>
+            项目更新
+          </h3>
+          <a 
+            href="/projects" 
+            class="block bg-bg-sub rounded-xl p-6 border border-border/20 hover:border-accent/50 transition-all"
+          >
+            <h4 class="font-medium mb-2">取色卡 Color Card</h4>
+            <p class="text-sm text-text-secondary mb-4">
+              一站式色彩工具，为摄影师和设计师打造。包含可视化色彩分析、智能配色、内置色彩库等 9 大功能。
+            </p>
+            <span class="text-sm text-accent">查看项目详情 →</span>
+          </a>
+        </div>
+      </div>
+      
+      <div class="text-center mt-8">
+        <a href="/works" class="text-accent hover:underline">查看更多作品 →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 共创 CTA 区 -->
+  <section class="section-padding bg-bg-sub">
+    <div class="container-main text-center max-w-2xl mx-auto">
+      <blockquote class="text-2xl md:text-3xl font-serif-cn italic text-text-primary mb-6 fade-in-up">
+        「一个人构想的世界是单薄的」
+      </blockquote>
+      
+      <p class="text-text-secondary mb-8 fade-in-up delay-1">
+        我们想寻找到与我们价值观相近的人，与我们一同发光发热。<br />
+        账号将长期保持非营利、纯公益的性质，我们只为热爱与共鸣而生。
+      </p>
+      
+      <a 
+        href="/join" 
+        class="btn-glow inline-block px-8 py-4 bg-accent text-text-primary font-medium rounded-full hover:bg-accent/80 transition-all fade-in-up delay-2"
+      >
+        寻找共鸣者 →
+      </a>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  // 视差效果
+  const parallaxBg = document.getElementById('parallax-bg');
+  
+  document.addEventListener('mousemove', (e) => {
+    const x = (e.clientX / window.innerWidth - 0.5) * 20;
+    const y = (e.clientY / window.innerHeight - 0.5) * 20;
+    if (parallaxBg) {
+      parallaxBg.style.transform = `translate(${x}px, ${y}px)`;
+    }
+  });
+</script>

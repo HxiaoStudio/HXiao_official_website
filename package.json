@@ -1,0 +1,24 @@
+{
+  "name": "hxiao_html",
+  "version": "1.0.0",
+  "description": "浮晓 HXiao 官网",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitcode.com/qingshangongzai/HXiao_official_website.git"
+  },
+  "keywords": ["浮晓", "HXiao", "创作共同体"],
+  "author": "浮游亦晓工作室",
+  "license": "ISC",
+  "dependencies": {
+    "@astrojs/tailwind": "^6.0.2",
+    "astro": "^6.4.8",
+    "tailwindcss": "^3.4.19"
+  }
+}

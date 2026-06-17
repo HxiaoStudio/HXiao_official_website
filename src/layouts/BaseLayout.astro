@@ -1,0 +1,72 @@
+---
+// BaseLayout.astro - 全局布局组件
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { 
+  title, 
+  description = '浮晓 HXiao - 互联网非营利性创作共同体。生如蜉蝣，却执意丈量天光的刻度。' 
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:site_name" content="浮晓 HXiao" />
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/assets/brand/HXiao_logo.png" />
+    
+    <title>{title}</title>
+  </head>
+  <body class="bg-bg-main text-text-primary font-sans-cn min-h-screen flex flex-col">
+    <Navbar />
+    
+    <main class="flex-grow pt-16 md:pt-20">
+      <slot />
+    </main>
+    
+    <Footer />
+    
+    <!-- Intersection Observer 全局脚本 -->
+    <script>
+      // 淡入上移动画观察器
+      const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.1,
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, observerOptions);
+
+      document.querySelectorAll('.fade-in-up').forEach(el => {
+        observer.observe(el);
+      });
+    </script>
+  </body>
+</html>

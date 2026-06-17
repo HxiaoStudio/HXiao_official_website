@@ -1,0 +1,364 @@
+---
+// charter.astro - 工作室章程页面
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const chapters = [
+  { id: 'chapter-1', title: '第一章 总则' },
+  { id: 'chapter-2', title: '第二章 成员定义与分类' },
+  { id: 'chapter-3', title: '第三章 组织架构与职责' },
+  { id: 'chapter-4', title: '第四章 成员加入、退出与除名' },
+  { id: 'chapter-5', title: '第五章 创作、版权与署名规范' },
+  { id: 'chapter-6', title: '第六章 议事与决策机制' },
+  { id: 'chapter-7', title: '第七章 财务与资产管理' },
+  { id: 'chapter-8', title: '第八章 活动与项目运行' },
+  { id: 'chapter-9', title: '第九章 章程生效与修改' },
+];
+---
+
+<BaseLayout title="工作室章程 - 浮晓 HXiao">
+  <!-- 页面标题 -->
+  <section class="py-16 md:py-24 bg-bg-main">
+    <div class="container-main text-center">
+      <h1 class="text-3xl md:text-4xl font-serif-cn font-bold mb-6 fade-in-up">
+        工作室章程
+      </h1>
+      <!-- 状态标识 -->
+      <div class="inline-flex items-center gap-2 px-4 py-2 bg-hover/30 rounded-full text-sm text-text-primary fade-in-up delay-1">
+        <span>⚠️</span>
+        <span><strong>临时章程</strong> — 待成员构成完整后咨询社员意见进行修订</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 引言 -->
+  <section class="py-8 bg-bg-sub">
+    <div class="container-main max-w-3xl text-center">
+      <p class="text-text-secondary italic fade-in-up">
+        本条例为临时条例，待成员构成完整后咨询社员意见进行修订。<br />
+        本条例旨在规范本社内部事务。
+      </p>
+    </div>
+  </section>
+
+  <!-- 主体内容 -->
+  <section class="section-padding bg-bg-main">
+    <div class="container-main">
+      <div class="flex gap-8 max-w-6xl mx-auto">
+        
+        <!-- 右侧悬浮目录（桌面端） -->
+        <aside class="hidden lg:block w-56 flex-shrink-0">
+          <div class="sticky top-24">
+            <h3 class="text-xs font-semibold text-text-secondary uppercase tracking-wider mb-4">章节目录</h3>
+            <nav class="space-y-2">
+              {chapters.map(ch => (
+                <a href={`#${ch.id}`} class="block text-sm text-text-secondary hover:text-accent transition-colors py-1">
+                  {ch.title}
+                </a>
+              ))}
+            </nav>
+          </div>
+        </aside>
+
+        <!-- 章程正文 -->
+        <div class="flex-1 max-w-3xl">
+          <!-- 第一章 总则 -->
+          <article id="chapter-1" class="mb-12 scroll-mt-24 fade-in-up">
+            <h2 class="text-2xl font-serif-cn font-bold mb-6 pb-3 border-b-2 border-accent/30">第一章 总则</h2>
+            
+            <div class="space-y-6">
+              <div>
+                <h3 class="font-semibold text-lg mb-3">第一条 名称与性质</h3>
+                <ol class="list-decimal list-inside space-y-2 text-text-secondary">
+                  <li>本组织全称为"浮游亦晓工作室"，英文名称为"HXiaoStudio"，对外统一使用"浮晓 HXiao"作为品牌标识。</li>
+                  <li>本工作室是由创作者基于共同价值观自愿组成的互联网非营利性创作共同体，实行自主管理、民主协作。</li>
+                </ol>
+              </div>
+              
+              <div>
+                <h3 class="font-semibold text-lg mb-3">第二条 宗旨</h3>
+                <ol class="list-decimal list-inside space-y-2 text-text-secondary">
+                  <li>遵守国家法律法规，践行社会主义核心价值观，传播积极健康的网络文化。</li>
+                  <li>以"渺小，但绝不停止思考与远望"为精神内核，通过创作记录真实、探索世界、启发思考。</li>
+                  <li>坚持非营利与公益导向，所有活动基于热爱与共鸣，为社会贡献温暖力量。</li>
+                </ol>
+              </div>
+              
+              <div>
+                <h3 class="font-semibold text-lg mb-3">第三条 组织原则</h3>
+                <ol class="list-decimal list-inside space-y-2 text-text-secondary">
+                  <li>实行成员民主协作制。所有成员地位平等，共同决策，但角色与责任不同。</li>
+                  <li>工作室最高议事机构为全体成员会议，日常协调与决策机构为核心成员小组。</li>
+                  <li>决策一般遵循"全体成员过半同意"生效原则，章程修改等重大事项需三分之二以上同意。</li>
+                </ol>
+              </div>
+            </div>
+          </article>
+
+          <!-- 第二章 成员定义与分类 -->
+          <article id="chapter-2" class="mb-12 scroll-mt-24 fade-in-up">
+            <h2 class="text-2xl font-serif-cn font-bold mb-6 pb-3 border-b-2 border-accent/30">第二章 成员定义与分类</h2>
+            
+            <div class="space-y-6">
+              <div>
+                <h3 class="font-semibold text-lg mb-3">第四条 成员总则</h3>
+                <ol class="list-decimal list-inside space-y-2 text-text-secondary">
+                  <li>本工作室成员均为自愿加入、认同章程并参与内容共创的个体。</li>
+                  <li>外部投稿者不属于成员，其与工作室仅为基于《投稿授权协议》的单次或有限次内容合作，不享有成员权利，亦不承担成员义务。</li>
+                </ol>
+              </div>
+              
+              <div>
+                <h3 class="font-semibold text-lg mb-3">第五条 成员分类</h3>
+                <p class="text-text-secondary mb-3">工作室成员分为以下两类：</p>
+                <div class="space-y-3">
+                  <div class="bg-bg-sub p-4 rounded-lg">
+                    <h4 class="font-semibold text-accent">1. 核心成员</h4>
+                    <ul class="list-disc list-inside text-text-secondary text-sm mt-2 space-y-1">
+                      <li>指长期深度参与工作室创作、运营或管理，并进入核心成员小组的成员。</li>
+                      <li>包括：负责人、各职能方向的固定召集人或骨干成员。</li>
+                      <li><strong>义务：</strong>承担更多组织、协调、决策与日常维护责任。</li>
+                      <li><strong>权利：</strong>参与核心成员小组议事，对日常事务拥有提案权与表决权。</li>
+                    </ul>
+                  </div>
+                  <div class="bg-bg-sub p-4 rounded-lg">
+                    <h4 class="font-semibold text-accent">2. 普通成员</h4>
+                    <ul class="list-disc list-inside text-text-secondary text-sm mt-2 space-y-1">
+                      <li>指认同工作室价值观，参与项目共创，但未进入核心成员小组的成员。</li>
+                      <li><strong>义务：</strong>遵守章程，参与所报名的项目协作，尊重团队决策。</li>
+                      <li><strong>权利：</strong>参与全体成员会议，享有提案权、表决权与创作署名权。</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              
+              <div>
+                <h3 class="font-semibold text-lg mb-3">第六条 成员身份转换</h3>
+                <ol class="list-decimal list-inside space-y-2 text-text-secondary">
+                  <li>普通成员可通过持续贡献，经核心成员小组提名并获全体成员会议简单多数同意，成为核心成员。</li>
+                  <li>核心成员若希望减轻责任，可申请转为普通成员。</li>
+                </ol>
+              </div>
+            </div>
+          </article>
+
+          <!-- 第三章 组织架构与职责 -->
+          <article id="chapter-3" class="mb-12 scroll-mt-24 fade-in-up">
+            <h2 class="text-2xl font-serif-cn font-bold mb-6 pb-3 border-b-2 border-accent/30">第三章 组织架构与职责</h2>
+            
+            <div class="space-y-6">
+              <div>
+                <h3 class="font-semibold text-lg mb-3">第七条 组织架构</h3>
+                <p class="text-text-secondary mb-2">工作室实行扁平化管理，设立三级架构：</p>
+                <ul class="list-disc list-inside text-text-secondary space-y-1">
+                  <li>全体成员会议：由全体核心成员与普通成员组成。</li>
+                  <li>核心成员小组：由负责人及各职能方向的核心成员组成。</li>
+                  <li>项目小组：为特定内容项目临时组建，实行"项目负责人制"。</li>
+                </ul>
+              </div>
+              
+              <div>
+                <h3 class="font-semibold text-lg mb-3">第八条 全体成员会议职责</h3>
+                <ol class="list-decimal list-inside space-y-2 text-text-secondary">
+                  <li>修改本章程。</li>
+                  <li>选举与罢免负责人。</li>
+                  <li>审议年度计划、财务报告等重大事项。</li>
+                  <li>决定核心成员的晋升与除名。</li>
+                </ol>
+              </div>
+              
+              <div>
+                <h3 class="font-semibold text-lg mb-3">第九条 负责人选举与职责</h3>
+                <ol class="list-decimal list-inside space-y-2 text-text-secondary">
+                  <li>负责人由全体成员会议选举产生，任期一年，可连任一届。</li>
+                  <li>负责人是工作室的对外代表与总协调人，主持核心成员小组会议，落实各项决议，无独断权。</li>
+                  <li>负责人可由全体成员会议罢免（需三分之二同意）。</li>
+                </ol>
+              </div>
+              
+              <div>
+                <h3 class="font-semibold text-lg mb-3">第十条 核心成员小组职责</h3>
+                <ol class="list-decimal list-inside space-y-2 text-text-secondary">
+                  <li>审核并决议新成员的加入申请。</li>
+                  <li>负责工作室日常运营、资源协调与项目进度跟踪。</li>
+                  <li>审议普通项目提案，制定执行计划。</li>
+                  <li>组织成员培训与协作规范维护。</li>
+                  <li>会议决议需记录并向全体成员公开摘要。</li>
+                </ol>
+              </div>
+            </div>
+          </article>
+
+          <!-- 第四章 成员加入、退出与除名 -->
+          <article id="chapter-4" class="mb-12 scroll-mt-24 fade-in-up">
+            <h2 class="text-2xl font-serif-cn font-bold mb-6 pb-3 border-b-2 border-accent/30">第四章 成员加入、退出与除名</h2>
+            
+            <div class="space-y-6">
+              <div>
+                <h3 class="font-semibold text-lg mb-3">第十一条 加入程序</h3>
+                <ol class="list-decimal list-inside space-y-2 text-text-secondary">
+                  <li>申请人须认同本章程及工作室价值观，通过指定渠道提交申请。</li>
+                  <li>申请由核心成员小组进行审核与评估。</li>
+                  <li>经核心成员小组过半数成员同意，即可批准加入。</li>
+                  <li>批准后，申请人完成电子确认流程，正式成为工作室普通成员。</li>
+                  <li>新成员由核心成员小组指定一名现有成员协助熟悉工作规范。</li>
+                </ol>
+              </div>
+              
+              <div>
+                <h3 class="font-semibold text-lg mb-3">第十二条 退出机制</h3>
+                <ol class="list-decimal list-inside space-y-2 text-text-secondary">
+                  <li>成员可自愿退出，但应提前告知并完成工作交接。</li>
+                  <li>核心成员退出时，应推荐接替人选或完成职责移交。</li>
+                </ol>
+              </div>
+              
+              <div>
+                <h3 class="font-semibold text-lg mb-3">第十三条 除名机制</h3>
+                <p class="text-text-secondary mb-2">成员出现以下情况，经核心成员小组提议，全体成员会议三分之二以上同意，可予以除名：</p>
+                <ol class="list-decimal list-inside space-y-2 text-text-secondary">
+                  <li>严重违反国家法律法规或本章程；</li>
+                  <li>蓄意损害工作室声誉或利益；</li>
+                  <li>长期不履行成员基本义务且无合理解释；</li>
+                  <li>其他经集体认定严重不当的行为。</li>
+                </ol>
+              </div>
+            </div>
+          </article>
+
+          <!-- 第五章 创作、版权与署名规范 -->
+          <article id="chapter-5" class="mb-12 scroll-mt-24 fade-in-up">
+            <h2 class="text-2xl font-serif-cn font-bold mb-6 pb-3 border-b-2 border-accent/30">第五章 创作、版权与署名规范</h2>
+            
+            <div class="space-y-6">
+              <div>
+                <h3 class="font-semibold text-lg mb-3">第十四条 内容创作原则</h3>
+                <ol class="list-decimal list-inside space-y-2 text-text-secondary">
+                  <li>坚持原创优先，鼓励独特视角与真诚表达。</li>
+                  <li>恪守版权法律，严禁使用任何未经合法授权的素材。</li>
+                </ol>
+              </div>
+              
+              <div>
+                <h3 class="font-semibold text-lg mb-3">第十五条 版权归属原则</h3>
+                <p class="text-text-secondary">遵循《共创伙伴加入确认书》与《投稿授权协议》约定的分层版权制度，明确区分个人素材版权、成品发布权与完整作品版权。</p>
+              </div>
+              
+              <div>
+                <h3 class="font-semibold text-lg mb-3">第十六条 最终成品署名规范（强制性）</h3>
+                <p class="text-text-secondary mb-2">所有发布成品须包含清晰署名：</p>
+                <ol class="list-decimal list-inside space-y-2 text-text-secondary">
+                  <li><strong>署名位置：</strong>视频须在片尾、图文须在文末/描述区明确列出。</li>
+                  <li><strong>署名标题：</strong>统一使用"【浮晓 HXiao】创作团队"。</li>
+                  <li><strong>署名内容与顺序：</strong>核心创作人员、外部投稿者、素材来源声明、特别鸣谢。</li>
+                  <li><strong>原创性与合规承诺：</strong>项目负责人须在发布前核对署名完整性与素材授权合规性。</li>
+                </ol>
+              </div>
+              
+              <div>
+                <h3 class="font-semibold text-lg mb-3">第十七条 违规处理</h3>
+                <p class="text-text-secondary">因未遵守署名规范或使用未授权素材导致纠纷的，相关责任人应承担相应责任，工作室可视情节给予警告、暂停协作或除名处理。</p>
+              </div>
+            </div>
+          </article>
+
+          <!-- 第六章 议事与决策机制 -->
+          <article id="chapter-6" class="mb-12 scroll-mt-24 fade-in-up">
+            <h2 class="text-2xl font-serif-cn font-bold mb-6 pb-3 border-b-2 border-accent/30">第六章 议事与决策机制</h2>
+            
+            <div class="space-y-6">
+              <div>
+                <h3 class="font-semibold text-lg mb-3">第十八条 全体成员会议</h3>
+                <ol class="list-decimal list-inside space-y-2 text-text-secondary">
+                  <li>每季度至少召开一次线上会议，由负责人召集并汇报工作。</li>
+                  <li>所有成员享有平等发言权与表决权。</li>
+                  <li>会议决议需记录并公开。</li>
+                </ol>
+              </div>
+              
+              <div>
+                <h3 class="font-semibold text-lg mb-3">第十九条 核心成员小组会议</h3>
+                <ol class="list-decimal list-inside space-y-2 text-text-secondary">
+                  <li>根据需要定期召开，由负责人或核心成员发起。</li>
+                  <li>决策尽量寻求共识，必要时投票决定，过程应记录并公开摘要。</li>
+                </ol>
+              </div>
+              
+              <div>
+                <h3 class="font-semibold text-lg mb-3">第二十条 线上协作与存档</h3>
+                <p class="text-text-secondary">重要决议、章程、成员名单等均在指定的线上协作平台存档，确保公开透明。</p>
+              </div>
+            </div>
+          </article>
+
+          <!-- 第七章 财务与资产管理 -->
+          <article id="chapter-7" class="mb-12 scroll-mt-24 fade-in-up">
+            <h2 class="text-2xl font-serif-cn font-bold mb-6 pb-3 border-b-2 border-accent/30">第七章 财务与资产管理</h2>
+            
+            <div class="space-y-6">
+              <div>
+                <h3 class="font-semibold text-lg mb-3">第二十一条 财务管理</h3>
+                <ol class="list-decimal list-inside space-y-2 text-text-secondary">
+                  <li>收入仅限平台激励、用户打赏等维持运营的微利形式。</li>
+                  <li>实行简易财务公开，每季度公布收支概要。</li>
+                  <li>资金用于支持内容创作、合规素材采购、运营成本及团队建设，不得私分。</li>
+                </ol>
+              </div>
+              
+              <div>
+                <h3 class="font-semibold text-lg mb-3">第二十二条 资产管理</h3>
+                <ol class="list-decimal list-inside space-y-2 text-text-secondary">
+                  <li>"浮晓 HXiao"账号、品牌标识、粉丝社群等无形资产归工作室集体所有。</li>
+                  <li>素材库、成品档案等数字资产由指定小组管理，共享使用。</li>
+                </ol>
+              </div>
+            </div>
+          </article>
+
+          <!-- 第八章 活动与项目运行 -->
+          <article id="chapter-8" class="mb-12 scroll-mt-24 fade-in-up">
+            <h2 class="text-2xl font-serif-cn font-bold mb-6 pb-3 border-b-2 border-accent/30">第八章 活动与项目运行</h2>
+            
+            <div class="space-y-6">
+              <div>
+                <h3 class="font-semibold text-lg mb-3">第二十三条 项目发起与执行</h3>
+                <ol class="list-decimal list-inside space-y-2 text-text-secondary">
+                  <li>任何成员均可发起项目提案，经核心成员小组评估后启动。</li>
+                  <li>项目实行"临时负责人制"，发起人或认领者自然成为该项目的协调人，享有创作自主权。</li>
+                  <li>执行流程：提案 → 核心小组评估 → 组建小组 → 执行与署名核对 → 发布与复盘。</li>
+                </ol>
+              </div>
+            </div>
+          </article>
+
+          <!-- 第九章 章程生效与修改 -->
+          <article id="chapter-9" class="mb-12 scroll-mt-24 fade-in-up">
+            <h2 class="text-2xl font-serif-cn font-bold mb-6 pb-3 border-b-2 border-accent/30">第九章 章程生效与修改</h2>
+            
+            <div class="space-y-6">
+              <div>
+                <h3 class="font-semibold text-lg mb-3">第二十四条 章程生效</h3>
+                <p class="text-text-secondary">本章程经全体创始成员电子确认后生效，对所有成员具有约束力。</p>
+              </div>
+              
+              <div>
+                <h3 class="font-semibold text-lg mb-3">第二十五条 章程修改</h3>
+                <ol class="list-decimal list-inside space-y-2 text-text-secondary">
+                  <li>任何成员可提出修改动议。</li>
+                  <li>修改草案须经全体成员会议讨论，并获得三分之二以上出席成员同意方可生效。</li>
+                  <li>修订后的章程应重新进行电子确认。</li>
+                </ol>
+              </div>
+            </div>
+          </article>
+
+          <!-- 生效信息 -->
+          <div class="mt-12 pt-8 border-t border-border/20 text-center text-text-secondary text-sm">
+            <p class="font-serif-cn">浮游亦晓工作室</p>
+            <p class="mt-2">生效日期：20____年____月____日</p>
+            <p class="mt-1 text-xs">（本章程的确认、修订及成员身份记录，均通过工作室指定的线上协作平台完成电子化流程，具有同等效力。）</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

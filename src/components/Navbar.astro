@@ -1,0 +1,108 @@
+---
+// Navbar.astro - 导航栏组件
+const currentPath = Astro.url.pathname;
+
+const navItems = [
+  { name: '关于', href: '/about' },
+  { name: '作品', href: '/works' },
+  { name: '项目', href: '/projects' },
+  { name: '成员', href: '/members' },
+  { name: '共创', href: '/join' },
+  { name: '章程', href: '/charter' },
+  { name: '联系', href: '/contact' },
+];
+---
+
+<nav id="navbar" class="navbar fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+  <div class="container-main flex items-center justify-between h-16 md:h-20">
+    <!-- Logo -->
+    <a href="/" class="flex items-center gap-2 group" aria-label="返回首页">
+      <img src="/assets/brand/HXiao_logo.png" alt="HXiao Studio" class="h-8 md:h-10 w-auto" />
+      <span class="hidden md:block text-xs text-text-secondary font-serif-cn">浮晓</span>
+    </a>
+
+    <!-- Desktop Navigation -->
+    <ul class="hidden md:flex items-center gap-8">
+      {navItems.map(item => (
+        <li>
+          <a 
+            href={item.href}
+            class:list={[
+              'nav-link text-sm font-medium transition-colors duration-300',
+              currentPath === item.href ? 'text-accent' : 'text-text-primary hover:text-accent'
+            ]}
+          >
+            {item.name}
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <!-- Mobile Hamburger Button -->
+    <button 
+      id="mobile-menu-btn"
+      class="md:hidden p-2 text-text-primary"
+      aria-label="打开菜单"
+      aria-expanded="false"
+    >
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="md:hidden hidden bg-bg-main/95 backdrop-blur-lg border-t border-border/20">
+    <ul class="flex flex-col py-4 px-6 gap-4">
+      {navItems.map(item => (
+        <li>
+          <a 
+            href={item.href}
+            class:list={[
+              'block py-2 text-base font-medium transition-colors',
+              currentPath === item.href ? 'text-accent' : 'text-text-primary hover:text-accent'
+            ]}
+          >
+            {item.name}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</nav>
+
+<script>
+  // 滚动毛玻璃效果
+  const navbar = document.getElementById('navbar');
+  
+  function updateNavbar() {
+    if (window.scrollY > 100) {
+      navbar.classList.add('nav-glass');
+    } else {
+      navbar.classList.remove('nav-glass');
+    }
+  }
+  
+  window.addEventListener('scroll', updateNavbar);
+  updateNavbar();
+
+  // 移动端汉堡菜单
+  const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  
+  if (mobileMenuBtn && mobileMenu) {
+    mobileMenuBtn.addEventListener('click', () => {
+      const isExpanded = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
+      mobileMenuBtn.setAttribute('aria-expanded', !isExpanded);
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // 点击菜单项后关闭菜单
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+        mobileMenuBtn.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
+</script>

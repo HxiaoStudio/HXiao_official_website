@@ -1,0 +1,171 @@
+---
+// about.astro - 关于浮晓页面
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const timeline = [
+  { time: '起点', title: '浮晓 HXiao 账号创立', desc: '从一个人的想法开始' },
+  { time: '里程碑', title: '首个爆款视频 BV1FzsNzbE9g', desc: '播放量最高的作品' },
+  { time: '项目期', title: '取色卡开源发布', desc: 'GPL-3.0，免费工具' },
+  { time: '制度化', title: '《浮游亦晓工作室章》起草', desc: '临时章程，待完善' },
+  { time: '现在', title: '寻找共创者，一起发光发热', desc: '开放招募中' },
+];
+
+const promises = [
+  { title: '非营利', desc: '账号长期保持非营利、纯公益性质' },
+  { title: '透明', desc: '决策过程记录并公开，财务每季度公开' },
+  { title: '平等', desc: '所有成员地位平等，共同决策' },
+  { title: '归属', desc: '创作署名权受保障，贡献被看见' },
+];
+---
+
+<BaseLayout title="关于浮晓 - 浮晓 HXiao">
+  <!-- 页面标题 -->
+  <section class="py-16 md:py-24 bg-bg-main">
+    <div class="container-main text-center">
+      <h1 class="text-3xl md:text-4xl font-serif-cn font-bold mb-6 fade-in-up">
+        关于浮晓
+      </h1>
+      <p class="text-text-secondary max-w-2xl mx-auto fade-in-up delay-1">
+        了解我们是谁、为什么存在
+      </p>
+    </div>
+  </section>
+
+  <!-- 名字释义 -->
+  <section class="section-padding bg-bg-sub">
+    <div class="container-main max-w-4xl">
+      <h2 class="text-2xl md:text-3xl font-serif-cn text-center mb-12 fade-in-up">
+        名字释义
+      </h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+        <!-- 浮 -->
+        <div class="bg-bg-main rounded-xl p-8 border border-border/20 text-center fade-in-up delay-1">
+          <span class="text-5xl font-serif-cn font-bold text-accent">浮</span>
+          <p class="mt-4 text-lg font-serif-cn">蜉蝣之浮</p>
+          <p class="mt-2 text-text-secondary text-sm">
+            微小、短暂、轻盈<br />
+            记录微小日常的脉搏
+          </p>
+        </div>
+        
+        <!-- 晓 -->
+        <div class="bg-bg-main rounded-xl p-8 border border-border/20 text-center fade-in-up delay-2">
+          <span class="text-5xl font-serif-cn font-bold text-accent">晓</span>
+          <p class="mt-4 text-lg font-serif-cn">知晓之晓</p>
+          <p class="mt-2 text-text-secondary text-sm">
+            洞察、觉醒、光明<br />
+            探寻广阔世界的模样
+          </p>
+        </div>
+      </div>
+      
+      <blockquote class="text-center text-lg font-serif-cn italic text-text-primary border-l-4 border-accent pl-6 py-4 fade-in-up delay-3">
+        我是浮晓 HXiao：<br />
+        取蜉蝣之浮，记录微小日常的脉搏；<br />
+        取知晓之晓，探寻广阔世界的模样。
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- 组织性质 -->
+  <section class="section-padding bg-bg-main">
+    <div class="container-main max-w-4xl">
+      <h2 class="text-2xl md:text-3xl font-serif-cn text-center mb-12 fade-in-up">
+        组织性质
+      </h2>
+      
+      <div class="space-y-8 fade-in-up delay-1">
+        <div class="bg-bg-sub rounded-xl p-6 border border-border/20">
+          <h3 class="text-lg font-semibold mb-3">我们是谁</h3>
+          <p class="text-text-secondary">
+            浮游亦晓工作室（HXiaoStudio）是由创作者基于共同价值观自愿组成的<strong class="text-text-primary">互联网非营利性创作共同体</strong>，实行自主管理、民主协作。
+          </p>
+        </div>
+        
+        <div class="bg-bg-sub rounded-xl p-6 border border-border/20">
+          <h3 class="text-lg font-semibold mb-3">我们的精神内核</h3>
+          <p class="text-text-secondary">
+            「渺小，但绝不停止思考与远望」—— 通过创作记录真实、探索世界、启发思考。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 时间线 -->
+  <section class="section-padding bg-bg-sub">
+    <div class="container-main max-w-3xl">
+      <h2 class="text-2xl md:text-3xl font-serif-cn text-center mb-12 fade-in-up">
+        我们的故事
+      </h2>
+      
+      <div class="relative">
+        <!-- 时间线主线 -->
+        <div class="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-border/40 md:-translate-x-px"></div>
+        
+        {timeline.map((item, index) => (
+          <div class:list={[
+            'relative flex items-start mb-8 fade-in-up',
+            index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
+          ]}>
+            <!-- 时间线节点 -->
+            <div class="timeline-dot absolute left-4 md:left-1/2 w-4 h-4 -translate-x-1/2 rounded-full bg-bg-main border-2 border-accent z-10"></div>
+            
+            <!-- 内容 -->
+            <div class:list={[
+              'ml-12 md:ml-0 md:w-1/2',
+              index % 2 === 0 ? 'md:pr-12 md:text-right' : 'md:pl-12'
+            ]}>
+              <span class="inline-block px-3 py-1 bg-accent-sub/30 text-accent text-xs font-medium rounded-full mb-2">
+                {item.time}
+              </span>
+              <h3 class="font-semibold mb-1">{item.title}</h3>
+              <p class="text-sm text-text-secondary">{item.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 我们的承诺 -->
+  <section class="section-padding bg-bg-main">
+    <div class="container-main max-w-4xl">
+      <h2 class="text-2xl md:text-3xl font-serif-cn text-center mb-12 fade-in-up">
+        我们的承诺
+      </h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {promises.map((item, index) => (
+          <div class="card-hover bg-bg-sub rounded-xl p-6 border border-border/20 fade-in-up" style={`transition-delay: ${index * 0.1}s`}>
+            <div class="flex items-start gap-4">
+              <span class="flex-shrink-0 w-10 h-10 rounded-full bg-success/20 flex items-center justify-center text-success">
+                ✓
+              </span>
+              <div>
+                <h3 class="font-semibold mb-2">{item.title}</h3>
+                <p class="text-sm text-text-secondary">{item.desc}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 章程入口 -->
+  <section class="py-16 bg-bg-sub text-center">
+    <div class="container-main">
+      <p class="text-text-secondary mb-4 fade-in-up">
+        了解我们的运行规则
+      </p>
+      <a 
+        href="/charter" 
+        class="btn-glow inline-block px-6 py-3 border-2 border-accent text-text-primary font-medium rounded-full hover:bg-accent/20 transition-all fade-in-up delay-1"
+      >
+        工作室章程 →
+      </a>
+    </div>
+  </section>
+</BaseLayout>

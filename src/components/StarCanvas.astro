@@ -1,0 +1,153 @@
+---
+// StarCanvas.astro - 星空粒子动效组件
+---
+
+<canvas id="star-canvas" class="absolute inset-0 w-full h-full pointer-events-none"></canvas>
+
+<script>
+  const canvas = document.getElementById('star-canvas') as HTMLCanvasElement;
+  const ctx = canvas.getContext('2d');
+  
+  let width = 0;
+  let height = 0;
+  let particles: Particle[] = [];
+  let mouseTrail: Trail[] = [];
+  let mouseX = 0;
+  let mouseY = 0;
+  let animationId = 0;
+  
+  interface Particle {
+    x: number;
+    y: number;
+    vx: number;
+    vy: number;
+    size: number;
+    opacity: number;
+    opacityDir: number;
+    color: string;
+  }
+  
+  interface Trail {
+    x: number;
+    y: number;
+    opacity: number;
+    size: number;
+  }
+  
+  // 粒子颜色：淡紫灰与淡蓝
+  const colors = ['#C4BAD2', '#AEDBFC', '#C8E0F4'];
+  
+  function resize() {
+    width = canvas.offsetWidth;
+    height = canvas.offsetHeight;
+    canvas.width = width;
+    canvas.height = height;
+  }
+  
+  function createParticles() {
+    particles = [];
+    const count = Math.floor((width * height) / 8000);
+    for (let i = 0; i < count; i++) {
+      particles.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: (Math.random() - 0.5) * 0.3,
+        size: Math.random() * 2 + 0.5,
+        opacity: Math.random() * 0.5 + 0.2,
+        opacityDir: Math.random() > 0.5 ? 1 : -1,
+        color: colors[Math.floor(Math.random() * colors.length)],
+      });
+    }
+  }
+  
+  function animate() {
+    ctx.clearRect(0, 0, width, height);
+    
+    // 绘制粒子
+    particles.forEach(p => {
+      p.x += p.vx;
+      p.y += p.vy;
+      
+      // 边界循环
+      if (p.x < 0) p.x = width;
+      if (p.x > width) p.x = 0;
+      if (p.y < 0) p.y = height;
+      if (p.y > height) p.y = 0;
+      
+      // 闪烁效果
+      p.opacity += p.opacityDir * 0.005;
+      if (p.opacity > 0.7) { p.opacity = 0.7; p.opacityDir = -1; }
+      if (p.opacity < 0.1) { p.opacity = 0.1; p.opacityDir = 1; }
+      
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+      ctx.fillStyle = p.color;
+      ctx.globalAlpha = p.opacity;
+      ctx.fill();
+    });
+    
+    // 绘制鼠标轨迹
+    mouseTrail.forEach((t, i) => {
+      t.opacity -= 0.02;
+      t.size *= 0.98;
+      if (t.opacity <= 0) {
+        mouseTrail.splice(i, 1);
+      } else {
+        ctx.beginPath();
+        ctx.arc(t.x, t.y, t.size, 0, Math.PI * 2);
+        ctx.fillStyle = '#AEDBFC';
+        ctx.globalAlpha = t.opacity;
+        ctx.fill();
+      }
+    });
+    
+    ctx.globalAlpha = 1;
+    animationId = requestAnimationFrame(animate);
+  }
+  
+  function handleMouseMove(e: MouseEvent) {
+    const rect = canvas.getBoundingClientRect();
+    mouseX = e.clientX - rect.left;
+    mouseY = e.clientY - rect.top;
+    
+    // 添加轨迹点
+    if (mouseTrail.length < 20) {
+      mouseTrail.push({
+        x: mouseX,
+        y: mouseY,
+        opacity: 0.6,
+        size: Math.random() * 3 + 1,
+      });
+    }
+  }
+  
+  // 初始化
+  function init() {
+    resize();
+    createParticles();
+    animate();
+  }
+  
+  // 监听事件
+  window.addEventListener('resize', () => {
+    resize();
+    createParticles();
+  });
+  
+  canvas.parentElement?.addEventListener('mousemove', handleMouseMove);
+  
+  // 检查用户是否偏好减少动效
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if (!prefersReducedMotion.matches) {
+    init();
+  }
+  
+  prefersReducedMotion.addEventListener('change', (e) => {
+    if (e.matches) {
+      cancelAnimationFrame(animationId);
+    } else {
+      init();
+    }
+  });
+</script>
