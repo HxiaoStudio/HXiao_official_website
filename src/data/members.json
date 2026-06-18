@@ -2,24 +2,25 @@
   "core_members": [
     {
       "nickname": "青山公仔（林淞江）",
-      "role": "账号发起人/临时负责人 / 策划/软件开发/账号运营",
-      "bio": "取蜉蝣之浮，记录微小日常的脉搏",
+      "role": "账号发起人/临时负责人 /打杂",
+      "bio": "在这个世界上，不是所有合理的和美好的都能按照自己的愿望存在或实现。",
       "joined_at": "2024-08",
       "avatar": "/assets/brand/HXiao_logo.png",
       "links": {
-        "bilibili": "https://space.bilibili.com/1232406878",
+        "bilibili": "https://space.bilibili.com/305762308",
         "github": "https://github.com/QingshanGongzai"
-      },
-      "projects": ["取色卡", "账号运营"]
-    }
-  ],
-  "regular_members": [
+      }
+    },
     {
       "nickname": "谨慎的心灵（谨硕）",
       "role": "账号联合发起人/审核",
+      "bio": "我将坚持做到，谨言慎行。",
       "joined_at": "2025-12",
-      "projects": ["BV1FzsNzbE9g"]
+      "links": {
+        "bilibili": "https://space.bilibili.com/3493122065565796"
+      }
     }
   ],
+  "regular_members": [],
   "honorary_members": []
 }
