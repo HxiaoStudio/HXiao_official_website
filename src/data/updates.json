@@ -1,0 +1,12 @@
+[
+  {
+    "category": "项目更新",
+    "dotColor": "bg-success",
+    "type": "project",
+    "href": "/projects",
+    "external": false,
+    "title": "取色卡 Color Card",
+    "description": "一站式色彩工具，为摄影师和设计师打造。包含可视化色彩分析、智能配色、内置色彩库等 9 大功能。",
+    "cta": "查看项目详情 →"
+  }
+]

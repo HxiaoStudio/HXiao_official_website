@@ -2,6 +2,27 @@
 // index.astro - 首页
 import BaseLayout from '../layouts/BaseLayout.astro';
 import StarCanvas from '../components/StarCanvas.astro';
+import updates from '../data/updates.json';
+import { fetchLatestVideo, BILI_UID } from '../utils/bilibili';
+
+// 自动获取最新 B站视频
+const latestVideo = await fetchLatestVideo(BILI_UID);
+const latestVideoEntry = latestVideo ? {
+  category: '最新视频',
+  dotColor: 'bg-accent',
+  type: 'video',
+  href: `https://www.bilibili.com/video/${latestVideo.bvid}`,
+  external: true,
+  cover: latestVideo.pic,
+  title: latestVideo.title,
+  description: '点击观看 B站视频 →',
+} : null;
+
+// 最新动态 = 最新视频（自动获取） + 手动维护的项目/公告
+const updatesWithMeta = [
+  ...(latestVideoEntry ? [latestVideoEntry] : []),
+  ...updates,
+];
 ---
 
 <BaseLayout title="浮晓 HXiao - 生如蜉蝣，却执意丈量天光的刻度">
@@ -103,51 +124,47 @@ import StarCanvas from '../components/StarCanvas.astro';
       </h2>
       
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <!-- 最新视频 -->
-        <div class="fade-in-up delay-1">
-          <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
-            <span class="w-2 h-2 bg-accent rounded-full"></span>
-            最新视频
-          </h3>
-          <a 
-            href="https://www.bilibili.com/video/BV1FzsNzbE9g" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            class="block bg-bg-sub rounded-xl overflow-hidden border border-border/20 hover:border-accent/50 transition-all"
-          >
-            <div class="aspect-video bg-bg-sub flex items-center justify-center">
-              <img 
-                src="https://i0.hdslb.com/bfs/archive/cover/BV1FzsNzbE9g.jpg" 
-                alt="视频封面" 
-                class="w-full h-full object-cover"
-                loading="lazy"
-                onerror="this.style.display='none'"
-              />
-            </div>
-            <div class="p-4">
-              <h4 class="font-medium mb-2 line-clamp-2">播放量最高作品</h4>
-              <p class="text-sm text-text-secondary">点击观看 B站视频 →</p>
-            </div>
-          </a>
-        </div>
-        
-        <!-- 项目更新 -->
-        <div class="fade-in-up delay-2">
-          <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
-            <span class="w-2 h-2 bg-success rounded-full"></span>
-            项目更新
-          </h3>
-          <a 
-            href="/projects" 
-            class="block bg-bg-sub rounded-xl p-6 border border-border/20 hover:border-accent/50 transition-all"
-          >
-            <h4 class="font-medium mb-2">取色卡 Color Card</h4>
-            <p class="text-sm text-text-secondary mb-4">
-              一站式色彩工具，为摄影师和设计师打造。包含可视化色彩分析、智能配色、内置色彩库等 9 大功能。
-            </p>
-            <span class="text-sm text-accent">查看项目详情 →</span>
-          </a>
-        </div>
+        {updatesWithMeta.map((item, index) => (
+          <div class={`fade-in-up delay-${index + 1}`}>
+            <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
+              <span class={`w-2 h-2 ${item.dotColor} rounded-full`}></span>
+              {item.category}
+            </h3>
+            {item.type === 'video' ? (
+              <a 
+                href={item.href}
+                target={item.external ? '_blank' : undefined}
+                rel={item.external ? 'noopener noreferrer' : undefined}
+                class="block bg-bg-sub rounded-xl overflow-hidden border border-border/20 hover:border-accent/50 transition-all"
+              >
+                <div class="aspect-video bg-bg-sub flex items-center justify-center">
+                  <img 
+                    src={item.cover}
+                    alt={item.title}
+                    class="w-full h-full object-cover"
+                    loading="lazy"
+                    onerror="this.style.display='none'"
+                  />
+                </div>
+                <div class="p-4">
+                  <h4 class="font-medium mb-2 line-clamp-2">{item.title}</h4>
+                  <p class="text-sm text-text-secondary">{item.description}</p>
+                </div>
+              </a>
+            ) : (
+              <a 
+                href={item.href}
+                target={item.external ? '_blank' : undefined}
+                rel={item.external ? 'noopener noreferrer' : undefined}
+                class="block bg-bg-sub rounded-xl p-6 border border-border/20 hover:border-accent/50 transition-all"
+              >
+                <h4 class="font-medium mb-2">{item.title}</h4>
+                <p class="text-text-secondary mb-4">{item.description}</p>
+                {item.cta && <span class="text-sm text-accent">{item.cta}</span>}
+              </a>
+            )}
+          </div>
+        ))}
       </div>
       
       <div class="text-center mt-8">

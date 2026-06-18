@@ -2,41 +2,8 @@
 // works.astro - 内容作品页面
 import BaseLayout from '../layouts/BaseLayout.astro';
 import videoEntries from '../data/videos.json';
-
-// 构建时从 B站 API 获取视频元数据（服务端请求，无 CORS 问题）
-interface VideoMeta {
-  bvid: string;
-  title: string;
-  pic: string;
-  play: number;
-  date: string;
-}
-
-async function fetchVideoMeta(bvid: string): Promise<VideoMeta | null> {
-  try {
-    const res = await fetch(`https://api.bilibili.com/x/web-interface/view?bvid=${bvid}`, {
-      headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-        'Referer': 'https://www.bilibili.com',
-      },
-    });
-    const json = await res.json();
-    if (json.code === 0) {
-      const d = json.data;
-      return {
-        bvid: d.bvid,
-        title: d.title,
-        pic: d.pic.replace('http://', 'https://'),
-        play: d.stat?.view ?? 0,
-        date: new Date(d.pubdate * 1000).toLocaleDateString('zh-CN'),
-      };
-    }
-    console.warn(`[works] B站 API 返回 code=${json.code} for ${bvid}: ${json.message}`);
-  } catch (e) {
-    console.warn(`[works] 获取视频信息失败 ${bvid}:`, e);
-  }
-  return null;
-}
+import { fetchVideoMeta, formatPlay } from '../utils/bilibili';
+import type { VideoMeta } from '../utils/bilibili';
 
 const videos: VideoMeta[] = (
   await Promise.all(
@@ -56,11 +23,6 @@ const articles = [
     date: '2024-08-20',
   },
 ];
-
-function formatPlay(num: number): string {
-  if (num >= 10000) return (num / 10000).toFixed(1) + '万';
-  return num.toLocaleString();
-}
 ---
 
 <BaseLayout title="内容作品 - 浮晓 HXiao">
