@@ -2,6 +2,7 @@
 // works.astro - 内容作品页面
 import BaseLayout from '../layouts/BaseLayout.astro';
 import videoEntries from '../data/videos.json';
+import articles from '../data/articles.json';
 import { fetchVideoMeta, formatPlay } from '../utils/bilibili';
 import type { VideoMeta } from '../utils/bilibili';
 
@@ -10,19 +11,6 @@ const videos: VideoMeta[] = (
     videoEntries.map((entry: { bvid: string }) => fetchVideoMeta(entry.bvid))
   )
 ).filter((v): v is VideoMeta => v !== null);
-
-const articles = [
-  {
-    title: '浮晓的创作理念',
-    summary: '记录微小日常的脉搏，探寻广阔世界的模样。我们相信，最平凡的瞬间也值得被认真对待。',
-    date: '2024-10-15',
-  },
-  {
-    title: '关于非营利创作的思考',
-    summary: '在这个流量至上的时代，我们选择坚持非营利、纯公益的创作路线。这篇文章记录了我们的思考与坚持。',
-    date: '2024-08-20',
-  },
-];
 ---
 
 <BaseLayout title="内容作品 - 浮晓 HXiao">
@@ -92,7 +80,7 @@ const articles = [
       
       <div class="space-y-6">
         {articles.map((article, index) => (
-          <article class="bg-bg-main rounded-xl p-6 border border-border/20 card-hover fade-in-up" style={`transition-delay: ${index * 0.1}s`}>
+          <a href={article.url} target="_blank" rel="noopener noreferrer" class="block bg-bg-main rounded-xl p-6 border border-border/20 card-hover fade-in-up" style={`transition-delay: ${index * 0.1}s`}>
             <div class="flex justify-between items-start gap-4">
               <div class="flex-1">
                 <h3 class="text-lg font-semibold mb-2">{article.title}</h3>
@@ -101,7 +89,7 @@ const articles = [
               </div>
               <span class="flex-shrink-0 text-accent text-sm">阅读 →</span>
             </div>
-          </article>
+          </a>
         ))}
       </div>
       
