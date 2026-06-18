@@ -1,8 +1,5 @@
 // bilibili.ts - B站 API 工具函数
 
-import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'fs';
-import { join } from 'path';
-
 export interface VideoMeta {
   bvid: string;
   title: string;
@@ -11,31 +8,70 @@ export interface VideoMeta {
   date: string;
 }
 
-// ── 缓存 ────────────────────────────────────────────────
+// ── 缓存（仅 Node.js 构建时可用，Worker 环境降级为无缓存）───
 
-const CACHE_DIR = join(process.cwd(), 'src', 'data', '.cache');
-const LATEST_VIDEO_CACHE = join(CACHE_DIR, 'latest-video.json');
 const CACHE_TTL = 30 * 60 * 1000; // 30 分钟
 
-function ensureCacheDir() {
-  if (!existsSync(CACHE_DIR)) {
-    mkdirSync(CACHE_DIR, { recursive: true });
+/** 检测是否为 Node.js 环境（构建时） */
+const isNode = typeof process !== 'undefined' && process.versions?.node;
+
+/**
+ * 懒加载 Node.js 文件系统模块。仅在 Node 环境可用，
+ * Cloudflare Workers 中返回 null，避免打包时因 fs/path 报错。
+ */
+async function getNodeFs(): Promise<{
+  readFileSync: (f: string, enc: string) => string;
+  writeFileSync: (f: string, data: string) => void;
+  existsSync: (f: string) => boolean;
+  mkdirSync: (d: string, opts?: { recursive: boolean }) => void;
+  join: (...segments: string[]) => string;
+} | null> {
+  if (!isNode) return null;
+  try {
+    const fs = await import('node:fs');
+    const path = await import('node:path');
+    return {
+      readFileSync: fs.readFileSync,
+      writeFileSync: fs.writeFileSync,
+      existsSync: fs.existsSync,
+      mkdirSync: fs.mkdirSync,
+      join: path.join,
+    };
+  } catch {
+    return null;
   }
 }
 
-function readCache(file: string): { data: VideoMeta; timestamp: number } | null {
+async function getCacheDir(): Promise<{ dir: string; file: string } | null> {
+  const nodeFs = await getNodeFs();
+  if (!nodeFs) return null;
+  const dir = nodeFs.join(process.cwd(), 'src', 'data', '.cache');
+  return { dir, file: nodeFs.join(dir, 'latest-video.json') };
+}
+
+async function readCache(): Promise<{ data: VideoMeta; timestamp: number } | null> {
+  const cache = await getCacheDir();
+  if (!cache) return null;
+  const nodeFs = await getNodeFs();
+  if (!nodeFs) return null;
   try {
-    if (existsSync(file)) {
-      return JSON.parse(readFileSync(file, 'utf-8'));
+    if (nodeFs.existsSync(cache.file)) {
+      return JSON.parse(nodeFs.readFileSync(cache.file, 'utf-8'));
     }
   } catch { /* 缓存损坏则忽略 */ }
   return null;
 }
 
-function writeCache(file: string, data: VideoMeta) {
+async function writeCache(data: VideoMeta): Promise<void> {
+  const cache = await getCacheDir();
+  if (!cache) return;
+  const nodeFs = await getNodeFs();
+  if (!nodeFs) return;
   try {
-    ensureCacheDir();
-    writeFileSync(file, JSON.stringify({ data, timestamp: Date.now() }));
+    if (!nodeFs.existsSync(cache.dir)) {
+      nodeFs.mkdirSync(cache.dir, { recursive: true });
+    }
+    nodeFs.writeFileSync(cache.file, JSON.stringify({ data, timestamp: Date.now() }));
   } catch { /* 写入失败不阻塞 */ }
 }
 
@@ -89,13 +125,13 @@ export async function fetchVideoMeta(bvid: string): Promise<VideoMeta | null> {
 
 /**
  * 通过 UID 获取用户最新发布的视频（默认取最近 1 条）
- * - 优先使用缓存（30 分钟 TTL）
+ * - 优先使用缓存（30 分钟 TTL，仅 Node 环境）
  * - API 失败时降级为过期缓存
  * - 遇限流自动重试 1 次（间隔 2 秒）
  */
 export async function fetchLatestVideo(uid: string): Promise<VideoMeta | null> {
-  // 1. 检查有效缓存
-  const cached = readCache(LATEST_VIDEO_CACHE);
+  // 1. 检查有效缓存（仅 Node 环境）
+  const cached = await readCache();
   if (cached && Date.now() - cached.timestamp < CACHE_TTL) {
     return cached.data;
   }
@@ -122,7 +158,7 @@ export async function fetchLatestVideo(uid: string): Promise<VideoMeta | null> {
           play: v.play ?? 0,
           date: new Date(v.created * 1000).toLocaleDateString('zh-CN'),
         };
-        writeCache(LATEST_VIDEO_CACHE, data);
+        await writeCache(data);
         return data;
       }
       // 非 0 状态码（含限流），延时重试
