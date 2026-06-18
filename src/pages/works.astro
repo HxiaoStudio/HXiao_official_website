@@ -26,7 +26,7 @@ async function fetchVideoMeta(bvid: string): Promise<VideoMeta | null> {
       return {
         bvid: d.bvid,
         title: d.title,
-        pic: d.pic,
+        pic: d.pic.replace('http://', 'https://'),
         play: d.stat?.view ?? 0,
         date: new Date(d.pubdate * 1000).toLocaleDateString('zh-CN'),
       };
@@ -99,6 +99,7 @@ function formatPlay(num: number): string {
                   alt={video.title}
                   class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   loading="lazy"
+                  referrerpolicy="no-referrer"
                 />
               </div>
               <div class="p-4">
