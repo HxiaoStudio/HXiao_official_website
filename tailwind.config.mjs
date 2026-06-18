@@ -17,8 +17,8 @@ export default {
         'brand-white': '#FFFFFF',
       },
       fontFamily: {
+        // 中文字体统一为思源宋体
         'serif-cn': ['Noto Serif SC', 'serif'],
-        'sans-cn': ['Noto Sans SC', 'sans-serif'],
         'inter': ['Inter', 'sans-serif'],
         'mono': ['JetBrains Mono', 'monospace'],
       },

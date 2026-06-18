@@ -1,5 +1,5 @@
-/* Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@400;600;700&display=swap');
+/* Google Fonts - 中文字体统一为思源宋体 */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Noto+Serif+SC:wght@400;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -32,7 +32,7 @@
 /* 基础样式 */
 html {
   scroll-behavior: smooth;
-  font-family: 'Noto Sans SC', 'Inter', sans-serif;
+  font-family: 'Noto Serif SC', 'Inter', serif;
   color: var(--color-text-primary);
   background-color: var(--color-bg-main);
 }
