@@ -1,6 +1,48 @@
 ---
 // works.astro - 内容作品页面
 import BaseLayout from '../layouts/BaseLayout.astro';
+import videoEntries from '../data/videos.json';
+
+// 构建时从 B站 API 获取视频元数据（服务端请求，无 CORS 问题）
+interface VideoMeta {
+  bvid: string;
+  title: string;
+  pic: string;
+  play: number;
+  date: string;
+}
+
+async function fetchVideoMeta(bvid: string): Promise<VideoMeta | null> {
+  try {
+    const res = await fetch(`https://api.bilibili.com/x/web-interface/view?bvid=${bvid}`, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+        'Referer': 'https://www.bilibili.com',
+      },
+    });
+    const json = await res.json();
+    if (json.code === 0) {
+      const d = json.data;
+      return {
+        bvid: d.bvid,
+        title: d.title,
+        pic: d.pic,
+        play: d.stat?.view ?? 0,
+        date: new Date(d.pubdate * 1000).toLocaleDateString('zh-CN'),
+      };
+    }
+    console.warn(`[works] B站 API 返回 code=${json.code} for ${bvid}: ${json.message}`);
+  } catch (e) {
+    console.warn(`[works] 获取视频信息失败 ${bvid}:`, e);
+  }
+  return null;
+}
+
+const videos: VideoMeta[] = (
+  await Promise.all(
+    videoEntries.map((entry: { bvid: string }) => fetchVideoMeta(entry.bvid))
+  )
+).filter((v): v is VideoMeta => v !== null);
 
 const articles = [
   {
@@ -14,6 +56,11 @@ const articles = [
     date: '2024-08-20',
   },
 ];
+
+function formatPlay(num: number): string {
+  if (num >= 10000) return (num / 10000).toFixed(1) + '万';
+  return num.toLocaleString();
+}
 ---
 
 <BaseLayout title="内容作品 - 浮晓 HXiao">
@@ -29,51 +76,47 @@ const articles = [
     </div>
   </section>
 
-  <!-- 数据概览 -->
-  <section class="py-12 bg-bg-sub">
-    <div class="container-main">
-      <div class="grid grid-cols-3 gap-6 max-w-3xl mx-auto text-center">
-        <div class="fade-in-up delay-1">
-          <div class="text-3xl md:text-4xl font-inter font-bold text-accent" id="stat-plays">--</div>
-          <p class="text-sm text-text-secondary mt-2">总播放量</p>
-        </div>
-        <div class="fade-in-up delay-2">
-          <div class="text-3xl md:text-4xl font-inter font-bold text-accent" id="stat-fans">--</div>
-          <p class="text-sm text-text-secondary mt-2">粉丝数</p>
-        </div>
-        <div class="fade-in-up delay-3">
-          <div class="text-3xl md:text-4xl font-inter font-bold text-accent" id="stat-videos">--</div>
-          <p class="text-sm text-text-secondary mt-2">视频总数</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- B站视频精选 -->
   <section class="section-padding bg-bg-main">
     <div class="container-main">
       <h2 class="text-2xl md:text-3xl font-serif-cn mb-8 fade-in-up">
         B站视频精选
       </h2>
-      
-      <!-- 加载状态 -->
-      <div id="videos-loading" class="text-center py-12">
-        <div class="inline-block w-8 h-8 border-4 border-accent/30 border-t-accent rounded-full animate-spin"></div>
-        <p class="text-text-secondary mt-4">正在加载视频数据...</p>
-      </div>
-      
-      <!-- 视频网格 -->
-      <div id="videos-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 hidden">
-        <!-- 动态填充 -->
-      </div>
-      
-      <!-- 错误状态 -->
-      <div id="videos-error" class="text-center py-12 hidden">
-        <p class="text-text-secondary">
-          视频数据加载失败，请稍后刷新重试。<br />
-          或直接访问我们的 <a href="https://space.bilibili.com/1232406878" target="_blank" rel="noopener noreferrer" class="text-accent hover:underline">B站主页</a>
+
+      {videos.length > 0 ? (
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {videos.map((video, index) => (
+            <a
+              href={`https://www.bilibili.com/video/${video.bvid}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="block bg-bg-sub rounded-xl overflow-hidden border border-border/20 hover:border-accent/50 transition-all group fade-in-up"
+              style={`transition-delay: ${index * 0.05}s`}
+            >
+              <div class="aspect-video bg-bg-sub relative overflow-hidden">
+                <img
+                  src={video.pic}
+                  alt={video.title}
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  loading="lazy"
+                />
+              </div>
+              <div class="p-4">
+                <h3 class="font-medium text-sm mb-2 line-clamp-2 group-hover:text-accent transition-colors">{video.title}</h3>
+                <div class="flex items-center gap-4 text-xs text-text-secondary">
+                  <span>▶ {formatPlay(video.play)}</span>
+                  <span>{video.date}</span>
+                </div>
+              </div>
+            </a>
+          ))}
+        </div>
+      ) : (
+        <p class="text-text-secondary text-center py-8">
+          暂无视频，请访问我们的
+          <a href="https://space.bilibili.com/1232406878" target="_blank" rel="noopener noreferrer" class="text-accent hover:underline">B站主页</a>
         </p>
-      </div>
+      )}
     </div>
   </section>
 
@@ -116,178 +159,3 @@ const articles = [
     </div>
   </section>
 </BaseLayout>
-
-<script>
-  // B站 UID
-  const BILIBILI_UID = 1232406878;
-  
-  // 数字格式化
-  function formatNumber(num: number): string {
-    if (num >= 10000) {
-      return (num / 10000).toFixed(1) + '万';
-    }
-    return num.toLocaleString();
-  }
-  
-  // 数字滚动动效
-  function animateNumber(element: HTMLElement, target: number, duration = 1500) {
-    const start = 0;
-    const startTime = performance.now();
-    
-    function update(currentTime: number) {
-      const elapsed = currentTime - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      const easeOut = 1 - Math.pow(1 - progress, 3);
-      const current = Math.floor(start + (target - start) * easeOut);
-      
-      element.textContent = formatNumber(current);
-      
-      if (progress < 1) {
-        requestAnimationFrame(update);
-      }
-    }
-    
-    requestAnimationFrame(update);
-  }
-  
-  // 获取用户信息
-  async function fetchUserInfo() {
-    const cacheKey = `bili_user_${BILIBILI_UID}`;
-    const cached = localStorage.getItem(cacheKey);
-    
-    if (cached) {
-      const { data, timestamp } = JSON.parse(cached);
-      if (Date.now() - timestamp < 1800000) return data;
-    }
-    
-    try {
-      const response = await fetch(`https://api.bilibili.com/x/space/arc/search?mid=${BILIBILI_UID}&ps=1`);
-      const json = await response.json();
-      
-      if (json.code === 0) {
-        const data = {
-          videos: json.data.page.count,
-        };
-        localStorage.setItem(cacheKey, JSON.stringify({ data, timestamp: Date.now() }));
-        return data;
-      }
-    } catch (e) {
-      console.warn('Failed to fetch user info:', e);
-    }
-    
-    return null;
-  }
-  
-  // 获取视频列表
-  async function fetchVideoList() {
-    const cacheKey = `bili_videos_${BILIBILI_UID}`;
-    const cached = localStorage.getItem(cacheKey);
-    
-    if (cached) {
-      const { data, timestamp } = JSON.parse(cached);
-      if (Date.now() - timestamp < 1800000) return data;
-    }
-    
-    try {
-      const response = await fetch(`https://api.bilibili.com/x/space/arc/search?mid=${BILIBILI_UID}&ps=30&pn=1`);
-      const json = await response.json();
-      
-      if (json.code === 0) {
-        const videos = json.data.list.vlist;
-        localStorage.setItem(cacheKey, JSON.stringify({ data: videos, timestamp: Date.now() }));
-        return videos;
-      }
-    } catch (e) {
-      console.warn('Failed to fetch video list:', e);
-    }
-    
-    return null;
-  }
-  
-  // 渲染视频卡片
-  function renderVideos(videos: any[]) {
-    const grid = document.getElementById('videos-grid');
-    if (!grid) return;
-    
-    grid.innerHTML = videos.slice(0, 12).map((video: any) => `
-      <a 
-        href="https://www.bilibili.com/video/${video.bvid}" 
-        target="_blank" 
-        rel="noopener noreferrer"
-        class="block bg-bg-sub rounded-xl overflow-hidden border border-border/20 hover:border-accent/50 transition-all group"
-      >
-        <div class="aspect-video bg-bg-sub relative overflow-hidden">
-          <img 
-            src="${video.pic}" 
-            alt="${video.title}" 
-            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-            loading="lazy"
-          />
-          <div class="absolute bottom-2 right-2 bg-black/70 text-white text-xs px-2 py-1 rounded">
-            ${video.length || '视频'}
-          </div>
-        </div>
-        <div class="p-4">
-          <h3 class="font-medium text-sm mb-2 line-clamp-2 group-hover:text-accent transition-colors">${video.title}</h3>
-          <div class="flex items-center gap-4 text-xs text-text-secondary">
-            <span>▶ ${formatNumber(video.play)}</span>
-            <span>${new Date(video.created * 1000).toLocaleDateString('zh-CN')}</span>
-          </div>
-        </div>
-      </a>
-    `).join('');
-    
-    grid.classList.remove('hidden');
-  }
-  
-  // 初始化
-  async function init() {
-    const loadingEl = document.getElementById('videos-loading');
-    const errorEl = document.getElementById('videos-error');
-    
-    try {
-      // 并行获取数据
-      const [userInfo, videos] = await Promise.all([
-        fetchUserInfo(),
-        fetchVideoList(),
-      ]);
-      
-      // 更新统计数据
-      if (userInfo) {
-        const playsEl = document.getElementById('stat-plays');
-        const fansEl = document.getElementById('stat-fans');
-        const videosEl = document.getElementById('stat-videos');
-        
-        if (videosEl) videosEl.textContent = String(userInfo.videos || '--');
-      }
-      
-      // 设置默认值
-      const playsEl = document.getElementById('stat-plays');
-      const fansEl = document.getElementById('stat-fans');
-      const videosEl = document.getElementById('stat-videos');
-      if (playsEl && playsEl.textContent === '--') playsEl.textContent = '查看B站';
-      if (fansEl && fansEl.textContent === '--') fansEl.textContent = '查看B站';
-      
-      // 渲染视频
-      if (videos && videos.length > 0) {
-        renderVideos(videos);
-        
-        // 计算总播放量
-        const totalPlays = videos.reduce((sum: number, v: any) => sum + (v.play || 0), 0);
-        if (playsEl && totalPlays > 0) {
-          animateNumber(playsEl, totalPlays);
-        }
-      } else {
-        errorEl?.classList.remove('hidden');
-      }
-    } catch (e) {
-      console.error('Error loading videos:', e);
-      errorEl?.classList.remove('hidden');
-    } finally {
-      loadingEl?.classList.add('hidden');
-    }
-  }
-  
-  // 页面加载后初始化
-  init();
-</script>
