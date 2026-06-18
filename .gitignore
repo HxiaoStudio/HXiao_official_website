@@ -33,3 +33,4 @@ pnpm-debug.log*
 .cache/
 /.qoder
 指令合集.txt
+/.trae
