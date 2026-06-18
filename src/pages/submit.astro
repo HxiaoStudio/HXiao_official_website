@@ -1,0 +1,285 @@
+---
+// submit.astro - 作品投稿页面
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const faqs = [
+  { q: '投稿需要是完成品吗？', a: '不一定。半成品、创意构思也可以投稿，我们乐意与你一同打磨完善。' },
+  { q: '投稿后作品的版权归谁？', a: '你的原作品版权始终归你所有。经我们制作发布的最终成品，著作权由浮晓团队与你共同所有。详见投稿授权协议。' },
+  { q: '投稿有报酬吗？', a: '浮晓是非营利创作共同体，暂无报酬。账号仅保留平台基础创作激励或用户打赏等微利收入维持运营。若涉及重大商业合作，会另行协商。' },
+  { q: '我可以把投稿作品再发到其他地方吗？', a: '当然可以。你拥有在任何平台转载、分享最终成品的权利。这是写进授权协议的。' },
+  { q: '多久会收到回复？', a: '我们会在收到投稿后尽快回复，通常一周内。如果长时间未回复，可能是邮件被吞了，请在B站私信提醒我们。' },
+  { q: '投稿被拒了怎么办？', a: '我们珍视每一份投稿。如果作品与账号调性不太匹配，我们会坦诚说明原因，并欢迎你继续关注、未来再投稿。' },
+];
+---
+
+<BaseLayout title="作品投稿 - 浮晓 HXiao">
+
+  <!-- Hero -->
+  <section class="py-16 md:py-24 bg-bg-main text-center">
+    <div class="container-main max-w-3xl">
+      <h1 class="text-3xl md:text-4xl font-serif-cn font-bold mb-8 fade-in-up">
+        作品投稿
+      </h1>
+      <blockquote class="text-lg md:text-xl font-serif-cn italic text-text-primary leading-relaxed fade-in-up delay-1">
+        每一份真诚的创作，都值得被看见。<br />
+        我们欢迎所有热爱创作的朋友，将你的作品投递给浮晓。
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- 投稿须知 -->
+  <section class="section-padding bg-bg-sub">
+    <div class="container-main max-w-3xl">
+      <h2 class="text-2xl font-serif-cn text-center mb-8 fade-in-up">投稿须知</h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+        {[
+          { title: '接受类型', desc: '视频、图片组、文章、插画、音乐、创意构思……形式不限，只要是你的原创作品。' },
+          { title: '非商业性质', desc: '浮晓不进行商业售卖，投稿授权为非商业性授权。账号仅保留平台基础创作激励和用户打赏等微利收入。' },
+          { title: '版权保护', desc: '你的原作品著作权永远属于你。最终成品著作权由浮晓团队与你共同所有，你在任何平台转载、分享最终成品的权利受协议保障。' },
+          { title: '共创打磨', desc: '我们可能会对你的作品进行必要的剪辑、配乐、排版、美化等加工，让作品以更好的面貌呈现。' },
+        ].map((item, i) => (
+          <div class="bg-bg-main rounded-xl p-6 border border-border/20 fade-in-up" style={`transition-delay: ${i * 0.1}s`}>
+            <h3 class="font-semibold text-accent mb-2">{item.title}</h3>
+            <p class="text-sm text-text-secondary">{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 投稿流程 -->
+  <section class="section-padding bg-bg-main">
+    <div class="container-main max-w-4xl">
+      <h2 class="text-2xl font-serif-cn text-center mb-8 fade-in-up">投稿流程</h2>
+      
+      <div class="flex flex-wrap justify-center gap-2 mb-8 fade-in-up delay-1">
+        {[
+          '准备作品',
+          '填写授权协议',
+          '生成 PDF',
+          '将作品 + PDF 发送至邮箱',
+          '团队审核',
+          '沟通打磨',
+          '发布',
+        ].map((step, i, arr) => (
+          <>
+            <span class="px-3 py-2 bg-bg-sub rounded-lg border border-border/20 text-sm font-medium">
+              {step}
+            </span>
+            {i < arr.length - 1 && <span class="text-accent self-center">→</span>}
+          </>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 投稿授权协议表单 -->
+  <section class="section-padding bg-bg-sub">
+    <div class="container-main max-w-3xl">
+      <h2 class="text-2xl font-serif-cn text-center mb-4 fade-in-up">投稿授权协议</h2>
+      <p class="text-center text-text-secondary mb-8 fade-in-up delay-1">
+        请填写以下信息，我们将根据本协议处理你的投稿。
+      </p>
+      
+      <div class="bg-bg-main rounded-2xl p-8 border border-border/20 fade-in-up delay-2">
+        
+        <!-- 一、作品信息 -->
+        <h3 class="font-semibold text-lg mb-4">一、作品信息</h3>
+        <div class="space-y-4 mb-8">
+          <div>
+            <label class="block text-sm font-medium mb-1">作品名称</label>
+            <input id="sub-field-title" type="text" class="w-full px-4 py-2 bg-bg-sub border border-border/30 rounded-lg focus:border-accent focus:outline-none" placeholder="_______________" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-1">作品类型</label>
+            <select id="sub-field-type" class="w-full px-4 py-2 bg-bg-sub border border-border/30 rounded-lg focus:border-accent focus:outline-none">
+              <option value="">请选择</option>
+              <option value="视频">视频</option>
+              <option value="图片组">图片组</option>
+              <option value="文章">文章</option>
+              <option value="其他">其他</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-1">创作者署名（昵称）</label>
+            <input id="sub-field-name" type="text" class="w-full px-4 py-2 bg-bg-sub border border-border/30 rounded-lg focus:border-accent focus:outline-none" placeholder="你想在作品中展示的署名" />
+          </div>
+        </div>
+
+        <!-- 二、授权确认 -->
+        <h3 class="font-semibold text-lg mb-4">二、授权确认</h3>
+        <div class="space-y-3 mb-8">
+          <label class="flex items-start gap-3 cursor-pointer">
+            <input id="sub-confirm-0" type="checkbox" class="mt-1 w-4 h-4 rounded border-border accent-accent" />
+            <span class="text-sm"><strong>加工权：</strong>我同意"浮晓 HXiao"团队对作品进行必要的剪辑、配乐、校对、排版及视觉美化。</span>
+          </label>
+          <label class="flex items-start gap-3 cursor-pointer">
+            <input id="sub-confirm-1" type="checkbox" class="mt-1 w-4 h-4 rounded border-border accent-accent" />
+            <span class="text-sm"><strong>版权归属：</strong>我理解原作品著作权归我个人所有，经制作发布的最终成品著作权由浮晓团队与本人共同所有。</span>
+          </label>
+          <label class="flex items-start gap-3 cursor-pointer">
+            <input id="sub-confirm-2" type="checkbox" class="mt-1 w-4 h-4 rounded border-border accent-accent" />
+            <span class="text-sm"><strong>转载权利：</strong>我（原作者）拥有在任何平台转载、分享该最终成品的权利。</span>
+          </label>
+          <label class="flex items-start gap-3 cursor-pointer">
+            <input id="sub-confirm-3" type="checkbox" class="mt-1 w-4 h-4 rounded border-border accent-accent" />
+            <span class="text-sm"><strong>使用范围：</strong>我理解本授权为非商业性授权（账号仅保留平台基础创作激励或用户打赏等维持运营的微利收入，不进行商业售卖；若涉及重大商业合作，需另行协商）。</span>
+          </label>
+          <label class="flex items-start gap-3 cursor-pointer">
+            <input id="sub-confirm-4" type="checkbox" class="mt-1 w-4 h-4 rounded border-border accent-accent" />
+            <span class="text-sm"><strong>原创承诺：</strong>我承诺该作品为本人原创，不侵犯任何第三方权益。</span>
+          </label>
+        </div>
+
+        <!-- 三、其他想说的话 -->
+        <h3 class="font-semibold text-lg mb-4">三、其他想说的话</h3>
+        <div class="space-y-4 mb-8">
+          <div>
+            <label class="block text-sm font-medium mb-1">还有什么想对我们说的？（选填）</label>
+            <textarea id="sub-field-remark" class="w-full px-4 py-2 bg-bg-sub border border-border/30 rounded-lg focus:border-accent focus:outline-none h-24 resize-none" placeholder="创作理念、灵感来源、对作品的期望……或者随便聊聊。"></textarea>
+          </div>
+        </div>
+
+        <!-- 提交说明 -->
+        <div class="bg-bg-sub rounded-xl p-6 border border-accent/30 text-center">
+          <button id="sub-print-btn" type="button"
+            class="w-full px-6 py-3 bg-accent text-text-primary font-medium rounded-lg hover:bg-accent-sub transition-colors mb-6">
+            生成 / 下载授权协议 PDF
+          </button>
+          <p class="text-sm text-text-secondary mb-2">
+            <strong>提交方式：</strong>请将生成的授权协议 PDF 与你的投稿作品，一并发送至
+          </p>
+          <a href="mailto:hxiao_studio@163.com" class="text-lg text-accent font-semibold hover:underline">
+            hxiao_studio@163.com
+          </a>
+          <p class="text-xs text-text-secondary mt-4">
+            邮件标题建议格式：「投稿 - 作品名称 - 你的昵称」。我们会在收到后尽快回复你。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 打印 / PDF 专用区域（默认隐藏，仅在 window.print 时显示） -->
+  <div id="print-area-submit">
+    <div class="print-header">
+      <img src="/assets/brand/HXiao_logo.png" alt="浮晓 HXiao Studio" />
+      <h1>投稿授权协议</h1>
+      <p class="print-meta">生成日期：<span id="sub-out-date"></span></p>
+    </div>
+
+    <h2>一、作品信息</h2>
+    <table class="print-table">
+      <tr><th>作品名称</th><td id="sub-out-title"></td></tr>
+      <tr><th>作品类型</th><td id="sub-out-type"></td></tr>
+      <tr><th>创作者署名</th><td id="sub-out-name"></td></tr>
+    </table>
+
+    <h2>二、授权与合作声明</h2>
+    <div class="print-declaration">
+      <p>我是作品《<span id="sub-out-title-inline"></span>》的原创作者/版权实际支配人。我知晓并同意"浮晓 HXiao"账号在全网各平台发布、推广该作品。</p>
+      <p><strong>针对该作品，我们达成如下共创共识：</strong></p>
+    </div>
+
+    <ul class="print-confirm">
+      <li><span id="sub-out-confirm-0"></span> <strong>加工权：</strong>我同意"浮晓 HXiao"团队对作品进行必要的剪辑、配乐、校对、排版及视觉美化。</li>
+      <li><span id="sub-out-confirm-1"></span> <strong>版权归属：</strong>原作品完整著作权及署名权归我个人所有；经制作发布的成品，其完整著作权由"浮晓 HXiao"团队（包括团队与参与本作品成品创作的成员）与本人共同所有。</li>
+      <li><span id="sub-out-confirm-2"></span> <strong>转载权利：</strong>我（原作者）拥有在任何平台转载、分享该最终成品的权利。</li>
+      <li><span id="sub-out-confirm-3"></span> <strong>使用范围说明：</strong>本授权为非商业性授权（账号仅保留平台基础创作激励或用户打赏等维持运营的微利收入，不进行商业售卖；若涉及重大商业合作，需另行协商）。</li>
+      <li><span id="sub-out-confirm-4"></span> <strong>原创承诺：</strong>我承诺该作品为本人原创，不侵犯任何第三方权益。</li>
+    </ul>
+
+    <h2>三、其他想说的话</h2>
+    <div class="print-qa">
+      <p class="print-a" id="sub-out-remark"></p>
+    </div>
+  </div>
+
+  <!-- 打印输出页脚（每页底部固定显示） -->
+  <p id="print-foot-submit">
+    请将本授权协议作为附件，连同投稿作品一并发送至 hxiao_studio@163.com
+  </p>
+
+  <!-- FAQ -->
+  <section class="section-padding bg-bg-main">
+    <div class="container-main max-w-3xl">
+      <h2 class="text-2xl font-serif-cn text-center mb-8 fade-in-up">常见问题</h2>
+      
+      <div class="space-y-4">
+        {faqs.map((faq, i) => (
+          <details class="bg-bg-sub rounded-xl border border-border/20 fade-in-up" style={`transition-delay: ${i * 0.05}s`}>
+            <summary class="px-6 py-4 cursor-pointer font-medium hover:text-accent transition-colors">
+              {faq.q}
+            </summary>
+            <div class="px-6 pb-4 text-sm text-text-secondary">
+              {faq.a}
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 联系方式 -->
+  <section class="py-16 bg-bg-sub text-center">
+    <div class="container-main max-w-2xl">
+      <h2 class="text-xl font-serif-cn mb-4 fade-in-up">还有其他问题？</h2>
+      <p class="text-text-secondary mb-6 fade-in-up delay-1">
+        可通过以下方式与我们联系
+      </p>
+      <div class="flex flex-wrap justify-center gap-4 fade-in-up delay-2">
+        <a href="https://space.bilibili.com/1232406878" target="_blank" rel="noopener noreferrer" class="px-4 py-2 bg-bg-main rounded-full border border-border/20 hover:border-accent text-sm">
+          B站私信
+        </a>
+        <span class="px-4 py-2 bg-bg-main rounded-full border border-border/20 text-sm">
+          微信公众号：HXiao_Studio
+        </span>
+        <a href="mailto:hxiao_studio@163.com" class="px-4 py-2 bg-bg-main rounded-full border border-border/20 hover:border-accent text-sm">
+          hxiao_studio@163.com
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 授权协议 PDF 生成脚本：读取表单值 → 填入打印区 → 调用浏览器打印 -->
+  <script>
+    const subFields = [
+      ['sub-field-title', 'sub-out-title'],
+      ['sub-field-type', 'sub-out-type'],
+      ['sub-field-name', 'sub-out-name'],
+      ['sub-field-remark', 'sub-out-remark'],
+    ];
+
+	    document.getElementById('sub-print-btn').addEventListener('click', () => {
+	      // 文本字段：取值并 trim，空值显示「（未填写）」
+	      subFields.forEach(([fieldId, outId]) => {
+	        const el = document.getElementById(fieldId);
+	        const value = el.value.trim();
+	        document.getElementById(outId).textContent = value || '（未填写）';
+	      });
+
+	      // 作品名称同步填入声明内联引用的位置
+	      const titleValue = document.getElementById('sub-field-title').value.trim();
+	      document.getElementById('sub-out-title-inline').textContent = titleValue || '______';
+
+	      // checkbox：勾选显示 ☑，未勾选显示 ☐
+	      for (let i = 0; i < 5; i++) {
+	        const checked = document.getElementById(`sub-confirm-${i}`).checked;
+	        document.getElementById(`sub-out-confirm-${i}`).textContent = checked ? '☑' : '☐';
+	      }
+
+      // 生成日期
+      document.getElementById('sub-out-date').textContent =
+        new Date().toLocaleDateString('zh-CN');
+
+      // 进入打印模式 → 调用浏览器打印 → 完成后退出
+      document.body.classList.add('printing');
+      window.print();
+      window.addEventListener('afterprint', () => {
+        document.body.classList.remove('printing');
+      }, { once: true });
+    });
+  </script>
+
+</BaseLayout>
