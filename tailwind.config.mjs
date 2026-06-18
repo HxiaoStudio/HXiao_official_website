@@ -19,7 +19,6 @@ export default {
       fontFamily: {
         // 中文字体统一为思源宋体
         'serif-cn': ['Noto Serif SC', 'serif'],
-        'inter': ['Inter', 'sans-serif'],
         'mono': ['JetBrains Mono', 'monospace'],
       },
       screens: {

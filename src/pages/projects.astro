@@ -116,7 +116,7 @@ const story = [
       <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto text-center">
         {stats.map((stat, index) => (
           <div class="fade-in-up" style={`transition-delay: ${index * 0.1}s`}>
-            <div class="text-3xl md:text-4xl font-inter font-bold text-accent">
+            <div class="text-3xl md:text-4xl font-serif-cn font-bold text-accent">
               <span class="counter" data-target={stat.value}>0</span>{stat.suffix}
             </div>
             <p class="text-sm text-text-secondary mt-2">{stat.label}</p>
