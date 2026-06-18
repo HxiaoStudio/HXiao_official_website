@@ -13,6 +13,7 @@ const platforms = [
     name: '微信公众号', 
     desc: 'HXiao_Studio',
     href: '#',
+    modal: true, // 点击后弹出二维码，而非跳转
     icon: 'M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348z'
   },
   { 
@@ -78,21 +79,39 @@ const platforms = [
       
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         {platforms.map((platform, i) => (
-          <a 
-            href={platform.href}
-            target={platform.href.startsWith('http') ? '_blank' : undefined}
-            rel={platform.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-            class="card-hover bg-bg-sub rounded-xl p-6 border border-border/20 text-center block fade-in-up"
-            style={`transition-delay: ${i * 0.1}s`}
-          >
-            <div class="w-12 h-12 mx-auto mb-4 rounded-full bg-accent-sub/20 flex items-center justify-center text-accent">
-              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                <path d={platform.icon} />
-              </svg>
-            </div>
-            <h3 class="font-semibold mb-2">{platform.name}</h3>
-            <p class="text-sm text-text-secondary">{platform.desc}</p>
-          </a>
+          platform.modal ? (
+            <button
+              type="button"
+              data-wx-modal-trigger
+              class="card-hover bg-bg-sub rounded-xl p-6 border border-border/20 text-center cursor-pointer fade-in-up"
+              style={`transition-delay: ${i * 0.1}s`}
+            >
+              <div class="w-12 h-12 mx-auto mb-4 rounded-full bg-accent-sub/20 flex items-center justify-center text-accent">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                  <path d={platform.icon} />
+                </svg>
+              </div>
+              <h3 class="font-semibold mb-2">{platform.name}</h3>
+              <p class="text-sm text-text-secondary">{platform.desc}</p>
+              <p class="text-xs text-accent mt-3">点击查看二维码</p>
+            </button>
+          ) : (
+            <a 
+              href={platform.href}
+              target={platform.href.startsWith('http') ? '_blank' : undefined}
+              rel={platform.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+              class="card-hover bg-bg-sub rounded-xl p-6 border border-border/20 text-center block fade-in-up"
+              style={`transition-delay: ${i * 0.1}s`}
+            >
+              <div class="w-12 h-12 mx-auto mb-4 rounded-full bg-accent-sub/20 flex items-center justify-center text-accent">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                  <path d={platform.icon} />
+                </svg>
+              </div>
+              <h3 class="font-semibold mb-2">{platform.name}</h3>
+              <p class="text-sm text-text-secondary">{platform.desc}</p>
+            </a>
+          )
         ))}
       </div>
     </div>
