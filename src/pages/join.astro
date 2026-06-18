@@ -179,19 +179,19 @@ const faqs = [
         <div class="space-y-4 mb-8">
           <div>
             <label class="block text-sm font-medium mb-1">你的昵称</label>
-            <input type="text" class="w-full px-4 py-2 bg-bg-main border border-border/30 rounded-lg focus:border-accent focus:outline-none" placeholder="_______________" />
+            <input id="field-nickname" type="text" class="w-full px-4 py-2 bg-bg-main border border-border/30 rounded-lg focus:border-accent focus:outline-none" placeholder="_______________" />
           </div>
           <div>
             <label class="block text-sm font-medium mb-1">联系方式</label>
-            <input type="text" class="w-full px-4 py-2 bg-bg-main border border-border/30 rounded-lg focus:border-accent focus:outline-none" placeholder="QQ / 微信 / 邮箱 / B站 / 电话（至少一项）" />
+            <input id="field-contact" type="text" class="w-full px-4 py-2 bg-bg-main border border-border/30 rounded-lg focus:border-accent focus:outline-none" placeholder="QQ / 微信 / 邮箱 / B站 / 电话（至少一项）" />
           </div>
           <div>
             <label class="block text-sm font-medium mb-1">你常用的平台</label>
-            <input type="text" class="w-full px-4 py-2 bg-bg-main border border-border/30 rounded-lg focus:border-accent focus:outline-none" placeholder="B站 / GitHub / 小红书 / 微博 / 其他" />
+            <input id="field-platform" type="text" class="w-full px-4 py-2 bg-bg-main border border-border/30 rounded-lg focus:border-accent focus:outline-none" placeholder="B站 / GitHub / 小红书 / 微博 / 其他" />
           </div>
           <div>
             <label class="block text-sm font-medium mb-1">想加入的角色方向</label>
-            <input type="text" class="w-full px-4 py-2 bg-bg-main border border-border/30 rounded-lg focus:border-accent focus:outline-none" placeholder="剪辑 / 策划 / 开发 / 拍摄 / 设计 / 配音 / 文案 / 统筹 / 还没想好" />
+            <input id="field-role" type="text" class="w-full px-4 py-2 bg-bg-main border border-border/30 rounded-lg focus:border-accent focus:outline-none" placeholder="剪辑 / 策划 / 开发 / 拍摄 / 设计 / 配音 / 文案 / 统筹 / 还没想好" />
           </div>
         </div>
         
@@ -200,15 +200,15 @@ const faqs = [
         <div class="space-y-4 mb-8">
           <div>
             <label class="block text-sm font-medium mb-1">1. 简单介绍一下你自己</label>
-            <textarea class="w-full px-4 py-2 bg-bg-main border border-border/30 rounded-lg focus:border-accent focus:outline-none h-24 resize-none" placeholder="几句话就好，说说你的兴趣、日常..."></textarea>
+            <textarea id="field-intro" class="w-full px-4 py-2 bg-bg-main border border-border/30 rounded-lg focus:border-accent focus:outline-none h-24 resize-none" placeholder="几句话就好，说说你的兴趣、日常..."></textarea>
           </div>
           <div>
             <label class="block text-sm font-medium mb-1">2. 你擅长什么，或者想尝试什么？</label>
-            <textarea class="w-full px-4 py-2 bg-bg-main border border-border/30 rounded-lg focus:border-accent focus:outline-none h-24 resize-none" placeholder="不需要很厉害，诚实就好..."></textarea>
+            <textarea id="field-skills" class="w-full px-4 py-2 bg-bg-main border border-border/30 rounded-lg focus:border-accent focus:outline-none h-24 resize-none" placeholder="不需要很厉害，诚实就好..."></textarea>
           </div>
           <div>
             <label class="block text-sm font-medium mb-1">3. 你有自己的作品或主页吗？（选填）</label>
-            <input type="text" class="w-full px-4 py-2 bg-bg-main border border-border/30 rounded-lg focus:border-accent focus:outline-none" placeholder="B站空间 / GitHub / 个人博客..." />
+            <input id="field-works" type="text" class="w-full px-4 py-2 bg-bg-main border border-border/30 rounded-lg focus:border-accent focus:outline-none" placeholder="B站空间 / GitHub / 个人博客..." />
           </div>
         </div>
         
@@ -217,11 +217,11 @@ const faqs = [
         <div class="space-y-4 mb-8">
           <div>
             <label class="block text-sm font-medium mb-1">4. 你从哪里认识浮晓的？</label>
-            <textarea class="w-full px-4 py-2 bg-bg-main border border-border/30 rounded-lg focus:border-accent focus:outline-none h-20 resize-none" placeholder="某个视频？某篇文章？朋友的推荐？"></textarea>
+            <textarea id="field-source" class="w-full px-4 py-2 bg-bg-main border border-border/30 rounded-lg focus:border-accent focus:outline-none h-20 resize-none" placeholder="某个视频？某篇文章？朋友的推荐？"></textarea>
           </div>
           <div>
             <label class="block text-sm font-medium mb-1">5. 浮晓最打动你的地方是什么？</label>
-            <textarea class="w-full px-4 py-2 bg-bg-main border border-border/30 rounded-lg focus:border-accent focus:outline-none h-20 resize-none" placeholder="一句话或一件事..."></textarea>
+            <textarea id="field-impress" class="w-full px-4 py-2 bg-bg-main border border-border/30 rounded-lg focus:border-accent focus:outline-none h-20 resize-none" placeholder="一句话或一件事..."></textarea>
           </div>
         </div>
         
@@ -235,7 +235,7 @@ const faqs = [
             '我承诺所提交的信息真实，并愿意在后续沟通中保持坦诚。',
           ].map((text, i) => (
             <label class="flex items-start gap-3 cursor-pointer">
-              <input type="checkbox" class="mt-1 w-4 h-4 rounded border-border accent-accent" />
+              <input id={`confirm-${i}`} type="checkbox" class="mt-1 w-4 h-4 rounded border-border accent-accent" />
               <span class="text-sm">{text}</span>
             </label>
           ))}
@@ -243,6 +243,10 @@ const faqs = [
         
         <!-- 提交说明 -->
         <div class="bg-bg-main rounded-xl p-6 border border-accent/30 text-center">
+          <button id="print-btn" type="button"
+            class="w-full px-6 py-3 bg-accent text-text-primary font-medium rounded-lg hover:bg-accent-sub transition-colors mb-6">
+            生成 / 下载申请书 PDF
+          </button>
           <p class="text-sm text-text-secondary mb-2">
             <strong>提交方式：</strong>请将填写后的申请书发送至
           </p>
@@ -256,6 +260,54 @@ const faqs = [
       </div>
     </div>
   </section>
+
+  <!-- 打印 / PDF 专用区域（默认隐藏，仅在 window.print 时显示） -->
+  <div id="print-area">
+    <div class="print-header">
+      <img src="/assets/brand/HXiao_logo.png" alt="浮晓 HXiao Studio" />
+      <h1>共创伙伴加入申请书</h1>
+      <p class="print-meta">生成日期：<span id="out-date"></span></p>
+    </div>
+
+    <h2>一、基本信息</h2>
+    <table class="print-table">
+      <tr><th>你的昵称</th><td id="out-nickname"></td></tr>
+      <tr><th>联系方式</th><td id="out-contact"></td></tr>
+      <tr><th>常用平台</th><td id="out-platform"></td></tr>
+      <tr><th>想加入的角色方向</th><td id="out-role"></td></tr>
+    </table>
+
+    <h2>二、关于你</h2>
+    <div class="print-qa">
+      <p class="print-q">1. 简单介绍一下你自己</p>
+      <p class="print-a" id="out-intro"></p>
+      <p class="print-q">2. 你擅长什么，或者想尝试什么？</p>
+      <p class="print-a" id="out-skills"></p>
+      <p class="print-q">3. 你有自己的作品或主页吗？（选填）</p>
+      <p class="print-a" id="out-works"></p>
+    </div>
+
+    <h2>三、关于浮晓</h2>
+    <div class="print-qa">
+      <p class="print-q">4. 你从哪里认识浮晓的？</p>
+      <p class="print-a" id="out-source"></p>
+      <p class="print-q">5. 浮晓最打动你的地方是什么？</p>
+      <p class="print-a" id="out-impress"></p>
+    </div>
+
+    <h2>四、确认事项</h2>
+    <ul class="print-confirm">
+      <li><span id="out-confirm-0"></span> 我认同「渺小但绝不停止思考与远望」的精神内核。</li>
+      <li><span id="out-confirm-1"></span> 我理解浮晓是一个非营利、纯公益的创作共同体，现阶段没有任何报酬。</li>
+      <li><span id="out-confirm-2"></span> 我愿意尊重并遵守《浮游亦晓工作室章程（临时）》及相关制度。</li>
+      <li><span id="out-confirm-3"></span> 我承诺所提交的信息真实，并愿意在后续沟通中保持坦诚。</li>
+    </ul>
+  </div>
+
+  <!-- 打印输出页脚（每页底部固定显示） -->
+  <p id="print-foot">
+    请将本申请书作为附件发送至 hxiao_studio@163.com
+  </p>
 
   <!-- FAQ -->
   <section class="section-padding bg-bg-sub">
@@ -297,4 +349,44 @@ const faqs = [
       </div>
     </div>
   </section>
+
+  <!-- 申请书 PDF 生成脚本：读取表单值 → 填入打印区 → 调用浏览器打印 -->
+  <script>
+    const fields = [
+      ['field-nickname', 'out-nickname'],
+      ['field-contact', 'out-contact'],
+      ['field-platform', 'out-platform'],
+      ['field-role', 'out-role'],
+      ['field-intro', 'out-intro'],
+      ['field-skills', 'out-skills'],
+      ['field-works', 'out-works'],
+      ['field-source', 'out-source'],
+      ['field-impress', 'out-impress'],
+    ];
+
+    document.getElementById('print-btn').addEventListener('click', () => {
+      // 文本字段：取值并 trim，空值显示「（未填写）」
+      fields.forEach(([fieldId, outId]) => {
+        const value = (document.getElementById(fieldId)?.value || '').trim();
+        document.getElementById(outId).textContent = value || '（未填写）';
+      });
+
+      // checkbox：勾选显示 ☑，未勾选显示 ☐
+      for (let i = 0; i < 4; i++) {
+        const checked = document.getElementById(`confirm-${i}`)?.checked;
+        document.getElementById(`out-confirm-${i}`).textContent = checked ? '☑' : '☐';
+      }
+
+      // 生成日期
+      document.getElementById('out-date').textContent =
+        new Date().toLocaleDateString('zh-CN');
+
+      // 进入打印模式 → 调用浏览器打印 → 完成后退出
+      document.body.classList.add('printing');
+      window.print();
+      window.addEventListener('afterprint', () => {
+        document.body.classList.remove('printing');
+      }, { once: true });
+    });
+  </script>
 </BaseLayout>
