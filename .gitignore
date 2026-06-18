@@ -34,3 +34,9 @@ pnpm-debug.log*
 /.qoder
 指令合集.txt
 /.trae
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+!.env.example
