@@ -1,0 +1,254 @@
+---
+// ThirdPartyModal.astro - 第三方资源声明弹窗
+// 全站共用：任意带 [data-third-party-trigger] 的元素点击后打开此弹窗
+---
+
+<div
+  id="third-party-modal"
+  class="fixed inset-0 z-[100] hidden items-center justify-center p-4"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="third-party-title"
+>
+  <!-- 磨砂遮罩 -->
+  <div
+    id="third-party-overlay"
+    class="absolute inset-0 bg-black/60 backdrop-blur-sm"
+  ></div>
+
+  <!-- 居中卡片 -->
+  <div
+    class="relative w-full max-w-3xl max-h-[85vh] bg-bg-sub rounded-2xl border border-border/30 shadow-2xl flex flex-col"
+  >
+    <!-- 关闭按钮 -->
+    <button
+      id="third-party-close"
+      type="button"
+      class="absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full text-text-secondary hover:text-text-primary hover:bg-bg-main/60 transition-colors z-10"
+      aria-label="关闭"
+    >
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+
+    <!-- 标题 -->
+    <div class="p-6 border-b border-border/20">
+      <h3 id="third-party-title" class="text-lg font-serif-cn font-semibold">
+        第三方资源列表
+      </h3>
+      <p class="text-xs text-text-secondary mt-1">
+        本网站在开发与展示过程中使用了以下第三方资源。
+      </p>
+    </div>
+
+    <!-- 内容区 -->
+    <div class="flex-1 overflow-y-auto p-6 space-y-6 text-sm text-text-secondary no-scrollbar">
+      <!-- Tailwind CSS -->
+      <section>
+        <h4 class="text-base font-serif-cn font-semibold text-text-primary mb-2">1. Tailwind CSS</h4>
+        <div class="space-y-1">
+          <p><span class="text-text-primary">版权所有：</span>Tailwind Labs, Inc.</p>
+          <p><span class="text-text-primary">项目地址：</span><a href="https://github.com/tailwindlabs/tailwindcss" target="_blank" rel="noopener noreferrer" class="text-accent hover:underline">https://github.com/tailwindlabs/tailwindcss</a></p>
+          <p><span class="text-text-primary">官网：</span><a href="https://tailwindcss.com" target="_blank" rel="noopener noreferrer" class="text-accent hover:underline">https://tailwindcss.com</a></p>
+          <p><span class="text-text-primary">许可证：</span>MIT License</p>
+          <p><span class="text-text-primary">用途：</span>CSS 样式框架</p>
+        </div>
+        <pre class="mt-3 p-3 bg-bg-main/60 rounded-lg text-xs font-mono whitespace-pre-wrap break-words text-text-secondary">MIT License
+
+Copyright (c) Tailwind Labs, Inc.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.</pre>
+      </section>
+
+      <hr class="border-border/20" />
+
+      <!-- Noto Serif SC -->
+      <section>
+        <h4 class="text-base font-serif-cn font-semibold text-text-primary mb-2">2. Noto Serif SC / 思源宋体</h4>
+        <div class="space-y-1">
+          <p><span class="text-text-primary">来源：</span>Google Fonts — <a href="https://fonts.google.com/noto/specimen/Noto+Serif+SC" target="_blank" rel="noopener noreferrer" class="text-accent hover:underline">https://fonts.google.com/noto/specimen/Noto+Serif+SC</a></p>
+          <p><span class="text-text-primary">版权所有：</span>© Adobe (<a href="http://www.adobe.com/" target="_blank" rel="noopener noreferrer" class="text-accent hover:underline">http://www.adobe.com/</a>), with Reserved Font Name 'Source'</p>
+          <p><span class="text-text-primary">许可证：</span>SIL Open Font License 1.1</p>
+          <p><span class="text-text-primary">用途：</span>网站正文字体（未随本网站分发，仅通过 Google Fonts 在线引用）</p>
+        </div>
+        <p class="mt-2 text-xs bg-bg-main/40 p-2 rounded">
+          说明：本网站未直接分发该字体文件，仅通过 Google Fonts 服务在页面渲染时加载。根据 SIL OFL 1.1，保留上述名称、版权及许可证声明即可。
+        </p>
+      </section>
+
+      <hr class="border-border/20" />
+
+      <!-- JetBrains Mono -->
+      <section>
+        <h4 class="text-base font-serif-cn font-semibold text-text-primary mb-2">3. JetBrains Mono</h4>
+        <div class="space-y-1">
+          <p><span class="text-text-primary">来源：</span>Google Fonts — <a href="https://fonts.google.com/specimen/JetBrains+Mono" target="_blank" rel="noopener noreferrer" class="text-accent hover:underline">https://fonts.google.com/specimen/JetBrains+Mono</a></p>
+          <p><span class="text-text-primary">版权所有：</span>JetBrains s.r.o.</p>
+          <p><span class="text-text-primary">许可证：</span>SIL Open Font License 1.1</p>
+          <p><span class="text-text-primary">用途：</span>代码/等宽字体（未随本网站分发，仅通过 Google Fonts 在线引用）</p>
+        </div>
+        <p class="mt-2 text-xs bg-bg-main/40 p-2 rounded">
+          说明：本网站未直接分发该字体文件，仅通过 Google Fonts 服务在页面渲染时加载。根据 SIL OFL 1.1，保留上述名称、版权及许可证声明即可。
+        </p>
+      </section>
+
+      <hr class="border-border/20" />
+
+      <!-- Astro -->
+      <section>
+        <h4 class="text-base font-serif-cn font-semibold text-text-primary mb-2">4. Astro</h4>
+        <div class="space-y-1">
+          <p><span class="text-text-primary">版权所有：</span>Fred K. Schott 及 Astro 贡献者</p>
+          <p><span class="text-text-primary">项目地址：</span><a href="https://github.com/withastro/astro" target="_blank" rel="noopener noreferrer" class="text-accent hover:underline">https://github.com/withastro/astro</a></p>
+          <p><span class="text-text-primary">官网：</span><a href="https://astro.build" target="_blank" rel="noopener noreferrer" class="text-accent hover:underline">https://astro.build</a></p>
+          <p><span class="text-text-primary">许可证：</span>MIT License</p>
+          <p><span class="text-text-primary">用途：</span>静态站点生成框架（仅用于开发构建，不包含在最终产品中）</p>
+        </div>
+        <pre class="mt-3 p-3 bg-bg-main/60 rounded-lg text-xs font-mono whitespace-pre-wrap break-words text-text-secondary">MIT License
+
+Copyright (c) 2021 Fred K. Schott
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.</pre>
+      </section>
+
+      <hr class="border-border/20" />
+
+      <!-- @astrojs/tailwind -->
+      <section>
+        <h4 class="text-base font-serif-cn font-semibold text-text-primary mb-2">5. @astrojs/tailwind</h4>
+        <div class="space-y-1">
+          <p><span class="text-text-primary">版权所有：</span>Astro 团队</p>
+          <p><span class="text-text-primary">项目地址：</span><a href="https://github.com/withastro/astro/tree/main/packages/integrations/tailwind" target="_blank" rel="noopener noreferrer" class="text-accent hover:underline">https://github.com/withastro/astro/tree/main/packages/integrations/tailwind</a></p>
+          <p><span class="text-text-primary">许可证：</span>MIT License</p>
+          <p><span class="text-text-primary">用途：</span>Astro 的 Tailwind CSS 集成（仅用于开发构建，不包含在最终产品中）</p>
+        </div>
+        <pre class="mt-3 p-3 bg-bg-main/60 rounded-lg text-xs font-mono whitespace-pre-wrap break-words text-text-secondary">MIT License
+
+Copyright (c) 2021 Fred K. Schott
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.</pre>
+      </section>
+
+      <hr class="border-border/20" />
+
+      <!-- GitHub Pages -->
+      <section>
+        <h4 class="text-base font-serif-cn font-semibold text-text-primary mb-2">6. GitHub Pages</h4>
+        <div class="space-y-1">
+          <p><span class="text-text-primary">服务提供：</span>GitHub, Inc.</p>
+          <p><span class="text-text-primary">官网：</span><a href="https://pages.github.com" target="_blank" rel="noopener noreferrer" class="text-accent hover:underline">https://pages.github.com</a></p>
+          <p><span class="text-text-primary">用途：</span>网站静态托管</p>
+        </div>
+      </section>
+    </div>
+
+    <!-- 底部关闭按钮 -->
+    <div class="p-4 border-t border-border/20 flex justify-end">
+      <button
+        type="button"
+        class="third-party-close-btn px-4 py-2 rounded-lg text-sm bg-bg-main hover:bg-hover text-text-primary transition-colors"
+      >
+        关闭
+      </button>
+    </div>
+  </div>
+</div>
+
+<style>
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+</style>
+
+<script>
+  (function () {
+    const modal = document.getElementById('third-party-modal');
+    if (!modal) return;
+
+    const overlay = document.getElementById('third-party-overlay');
+    const closeBtn = document.getElementById('third-party-close');
+    const bottomCloseBtns = document.querySelectorAll('.third-party-close-btn');
+
+    const open = () => {
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+    };
+
+    const close = () => {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      document.body.style.overflow = '';
+    };
+
+    document.querySelectorAll('[data-third-party-trigger]').forEach((el) => {
+      el.addEventListener('click', (e) => {
+        e.preventDefault();
+        open();
+      });
+    });
+
+    overlay?.addEventListener('click', close);
+    closeBtn?.addEventListener('click', close);
+    bottomCloseBtns.forEach((btn) => btn.addEventListener('click', close));
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+        close();
+      }
+    });
+  })();
+</script>
