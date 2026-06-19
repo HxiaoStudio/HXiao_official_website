@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://hxiaostudio.cn/sitemap-index.xml
