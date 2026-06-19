@@ -3,26 +3,6 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import StarCanvas from '../components/StarCanvas.astro';
 import updates from '../data/updates.json';
-import { fetchLatestVideo, BILI_UID } from '../utils/bilibili';
-
-// 自动获取最新 B站视频
-const latestVideo = await fetchLatestVideo(BILI_UID);
-const latestVideoEntry = latestVideo ? {
-  category: '最新视频',
-  dotColor: 'bg-accent',
-  type: 'video',
-  href: `https://www.bilibili.com/video/${latestVideo.bvid}`,
-  external: true,
-  cover: latestVideo.pic,
-  title: latestVideo.title,
-  description: '点击观看 B站视频 →',
-} : null;
-
-// 最新动态 = 最新视频（自动获取） + 手动维护的项目/公告
-const updatesWithMeta = [
-  ...(latestVideoEntry ? [latestVideoEntry] : []),
-  ...updates,
-];
 ---
 
 <BaseLayout title="浮晓 HXiao - 生如蜉蝣，却执意丈量天光的刻度">
@@ -130,7 +110,7 @@ const updatesWithMeta = [
       </h2>
       
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {updatesWithMeta.map((item, index) => (
+        {updates.map((item, index) => (
           <div class={`fade-in-up delay-${index + 1}`}>
             <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
               <span class={`w-2 h-2 ${item.dotColor} rounded-full`}></span>

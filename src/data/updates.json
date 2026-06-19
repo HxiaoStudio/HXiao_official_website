@@ -1,5 +1,15 @@
 [
   {
+    "category": "最新视频",
+    "dotColor": "bg-accent",
+    "type": "video",
+    "href": "https://www.bilibili.com/video/BV1vpckzhEH8",
+    "external": true,
+    "cover": "https://i1.hdslb.com/bfs/archive/0f9c603a1eaa1152425b1f188b2f1f0926351c71.jpg",
+    "title": "取色卡（Color Card）使用说明",
+    "description": "点击观看 B站视频 →"
+  },
+  {
     "category": "项目更新",
     "dotColor": "bg-success",
     "type": "project",
