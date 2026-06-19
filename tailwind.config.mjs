@@ -11,7 +11,7 @@ export default {
         'accent': '#AEDBFC',
         'accent-sub': '#C8E0F4',
         'border': '#C4BAD2',
-        'hover': '#EAC9C4',
+        'hover': '#DCD0EC',
         'success': '#a8d8b9',
         'brand-black': '#000000',
         'brand-white': '#FFFFFF',
