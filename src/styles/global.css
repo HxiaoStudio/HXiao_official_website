@@ -5,36 +5,65 @@
 @tailwind components;
 @tailwind utilities;
 
-/* CSS 变量 - 色彩系统 */
+/* CSS 变量 - 色彩系统（RGB 三通道，配合 Tailwind alpha 占位符） */
 :root {
   /* 背景色 */
-  --color-bg-main: #FEFFFF;
-  --color-bg-sub: #F4F6FA;
+  --color-bg-main: 254 255 255;
+  --color-bg-sub: 244 246 250;
   
   /* 文字色 */
-  --color-text-primary: #1a1a2e;
-  --color-text-secondary: #6b6b7b;
+  --color-text-primary: 26 26 46;
+  --color-text-secondary: 107 107 123;
   
   /* 强调色 */
-  --color-accent: #AEDBFC;
-  --color-accent-sub: #C8E0F4;
+  --color-accent: 174 219 252;
+  --color-accent-sub: 200 224 244;
   
   /* 辅助色 */
-  --color-border: #C4BAD2;
-  --color-hover: #DCD0EC;
-  --color-success: #a8d8b9;
+  --color-border: 196 186 210;
+  --color-hover: 220 208 236;
+  --color-success: 168 216 185;
   
   /* 品牌色 */
-  --color-brand-black: #000000;
-  --color-brand-white: #FFFFFF;
+  --color-brand-black: 0 0 0;
+  --color-brand-white: 255 255 255;
+}
+
+/* CSS 变量 - 深色模式色彩 */
+.dark {
+  --color-bg-main: 15 17 23;
+  --color-bg-sub: 26 27 38;
+  --color-text-primary: 228 228 239;
+  --color-text-secondary: 157 157 175;
+  --color-accent: 91 155 213;
+  --color-accent-sub: 58 124 192;
+  --color-border: 59 58 74;
+  --color-hover: 42 41 58;
+  --color-success: 74 157 110;
+  --color-brand-black: 255 255 255;
+  --color-brand-white: 15 17 23;
+}
+
+/* 深色模式切换过渡动画（View Transitions API） */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.4s;
+  animation-timing-function: ease-in-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 0.01ms !important;
+  }
 }
 
 /* 基础样式 */
 html {
   scroll-behavior: smooth;
   font-family: 'Noto Serif SC', serif;
-  color: var(--color-text-primary);
-  background-color: var(--color-bg-main);
+  color: rgb(var(--color-text-primary));
+  background-color: rgb(var(--color-bg-main));
 }
 
 body {
@@ -52,19 +81,19 @@ h1, h2, h3, h4, h5, h6 {
 
 /* 链接样式 */
 a {
-  color: var(--color-accent);
+  color: rgb(var(--color-accent));
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
 a:hover {
-  color: var(--color-border);
+  color: rgb(var(--color-border));
 }
 
 /* 选中文字颜色 */
 ::selection {
-  background-color: var(--color-accent);
-  color: var(--color-text-primary);
+  background-color: rgb(var(--color-accent));
+  color: rgb(var(--color-text-primary));
 }
 
 /* ========================================
@@ -97,7 +126,7 @@ a:hover {
 
 .card-hover:hover {
   transform: translateY(-8px);
-  background-color: var(--color-hover);
+  background-color: rgb(var(--color-hover));
 }
 
 /* 按钮发光效果 */
@@ -107,15 +136,15 @@ a:hover {
 }
 
 .btn-glow:hover {
-  box-shadow: 0 0 20px rgba(174, 219, 252, 0.5), 0 0 40px rgba(174, 219, 252, 0.3);
+  box-shadow: 0 0 20px rgb(var(--color-accent) / 0.5), 0 0 40px rgb(var(--color-accent) / 0.3);
 }
 
 /* 导航栏毛玻璃效果 */
 .nav-glass {
-  background: rgba(254, 255, 255, 0.85);
+  background: rgb(var(--color-bg-main) / 0.85);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(196, 186, 210, 0.2);
+  border-bottom: 1px solid rgb(var(--color-border) / 0.2);
 }
 
 /* 导航链接下划线动效 */
@@ -130,7 +159,7 @@ a:hover {
   left: 50%;
   width: 0;
   height: 2px;
-  background-color: var(--color-accent);
+  background-color: rgb(var(--color-accent));
   transition: width 0.3s ease, left 0.3s ease;
 }
 
@@ -153,14 +182,25 @@ a:hover {
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background-color: var(--color-accent);
+  background-color: rgb(var(--color-accent));
   opacity: 0;
   transition: opacity 0.5s ease, box-shadow 0.5s ease;
 }
 
 .timeline-dot.visible::before {
   opacity: 1;
-  box-shadow: 0 0 15px var(--color-accent);
+  box-shadow: 0 0 15px rgb(var(--color-accent));
+}
+
+/* Logo 深色模式反转（黑→白） */
+.dark .dark-logo {
+  filter: invert(1);
+}
+
+@media print {
+  .dark-logo {
+    filter: none !important;
+  }
 }
 
 /* ========================================
@@ -339,7 +379,7 @@ a:hover {
 #print-area-confirm .print-sign {
   margin-top: 2.5rem;
   padding-top: 1.5rem;
-  border-top: 1px solid var(--color-border);
+  border-top: 1px solid rgb(var(--color-border));
 }
 #print-area-confirm .print-sign p {
   margin: 0.4rem 0;
@@ -347,6 +387,18 @@ a:hover {
 
 /* 打印模式：仅 body.printing 时生效，重组页面只留打印区 */
 @media print {
+  /* 打印时强制浅色模式色彩，不受深色模式影响 */
+  :root {
+    --color-bg-main: 254 255 255;
+    --color-bg-sub: 244 246 250;
+    --color-text-primary: 26 26 46;
+    --color-text-secondary: 107 107 123;
+    --color-accent: 174 219 252;
+    --color-accent-sub: 200 224 244;
+    --color-border: 196 186 210;
+    --color-hover: 220 208 236;
+    --color-success: 168 216 185;
+  }
   @page {
     margin: 1.5cm 1.5cm 2.5cm;
   }

@@ -34,8 +34,12 @@
     size: number;
   }
   
-  // 粒子颜色：淡紫灰与淡蓝
-  const colors = ['#C4BAD2', '#AEDBFC', '#C8E0F4'];
+  // 粒子颜色：淡紫灰与淡蓝（深色模式使用更高亮度的色彩）
+  const lightColors = ['#C4BAD2', '#AEDBFC', '#C8E0F4'];
+  const darkColors = ['#7b9fd4', '#5b9bd5', '#88c4f0'];
+  const isDark = document.documentElement.classList.contains('dark');
+  const colors = isDark ? darkColors : lightColors;
+  const trailColor = isDark ? '#5b9bd5' : '#AEDBFC';
   
   function resize() {
     width = canvas.offsetWidth;
@@ -96,7 +100,7 @@
       } else {
         ctx.beginPath();
         ctx.arc(t.x, t.y, t.size, 0, Math.PI * 2);
-        ctx.fillStyle = '#AEDBFC';
+        ctx.fillStyle = trailColor;
         ctx.globalAlpha = t.opacity;
         ctx.fill();
       }

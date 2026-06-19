@@ -1,20 +1,21 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+  darkMode: 'class',
   content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
   theme: {
     extend: {
       colors: {
-        'bg-main': '#FEFFFF',
-        'bg-sub': '#F4F6FA',
-        'text-primary': '#1a1a2e',
-        'text-secondary': '#6b6b7b',
-        'accent': '#AEDBFC',
-        'accent-sub': '#C8E0F4',
-        'border': '#C4BAD2',
-        'hover': '#DCD0EC',
-        'success': '#a8d8b9',
-        'brand-black': '#000000',
-        'brand-white': '#FFFFFF',
+        'bg-main': 'rgb(var(--color-bg-main) / <alpha-value>)',
+        'bg-sub': 'rgb(var(--color-bg-sub) / <alpha-value>)',
+        'text-primary': 'rgb(var(--color-text-primary) / <alpha-value>)',
+        'text-secondary': 'rgb(var(--color-text-secondary) / <alpha-value>)',
+        'accent': 'rgb(var(--color-accent) / <alpha-value>)',
+        'accent-sub': 'rgb(var(--color-accent-sub) / <alpha-value>)',
+        'border': 'rgb(var(--color-border) / <alpha-value>)',
+        'hover': 'rgb(var(--color-hover) / <alpha-value>)',
+        'success': 'rgb(var(--color-success) / <alpha-value>)',
+        'brand-black': 'rgb(var(--color-brand-black) / <alpha-value>)',
+        'brand-white': 'rgb(var(--color-brand-white) / <alpha-value>)',
       },
       fontFamily: {
         // 中文字体统一为思源宋体

@@ -1,0 +1,23 @@
+---
+// DarkModeInit.astro - 深色模式初始化脚本（防闪烁 + 系统主题监听）
+// 适用于不使用 BaseLayout 的独立页面，避免重复代码
+---
+
+<!-- 防闪烁：在 <head> 中同步执行，页面渲染前确定主题 -->
+<script is:inline>
+  (function() {
+    var stored = localStorage.getItem('theme');
+    if (stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+    }
+  })();
+</script>
+
+<!-- 系统主题变更实时监听（仅用户未手动设置时跟随系统） -->
+<script is:inline>
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+    if (!localStorage.getItem('theme')) {
+      document.documentElement.classList.toggle('dark', e.matches);
+    }
+  });
+</script>
