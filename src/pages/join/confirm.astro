@@ -1,0 +1,277 @@
+---
+// confirm.astro - 共创伙伴加入确认书（隐藏页面，仅由 /join 的加入流程入口进入）
+import '../../styles/global.css';
+
+const title = '共创伙伴加入确认书 - 浮晓 HXiao';
+const description = '浮晓 HXiao 共创伙伴加入确认书。在线签署后随邮件发送，视为正式确认加入。';
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:site_name" content="浮晓 HXiao" />
+    <link rel="icon" type="image/png" href="/assets/brand/HXiao_logo.png" />
+    <title>{title}</title>
+  </head>
+  <body class="bg-bg-main text-text-primary font-serif-cn min-h-screen flex flex-col">
+
+    <main class="flex-grow pt-8 pb-16">
+      <div class="container-main max-w-3xl">
+
+        <!-- 顶部品牌 + 返回入口（不进入导航栏，仅作返回） -->
+        <div class="flex items-center justify-between mb-8 fade-in-up">
+          <a href="/join" class="text-sm text-text-secondary hover:text-accent transition-colors">
+            ← 返回加入流程
+          </a>
+          <img src="/assets/brand/HXiao_logo.png" alt="浮晓 HXiao" class="h-8" />
+        </div>
+
+        <!-- 确认书正文（屏幕展示版） -->
+        <article class="bg-bg-sub rounded-2xl p-8 md:p-12 border border-border/20 fade-in-up delay-1">
+
+          <h1 class="text-2xl md:text-3xl font-serif-cn font-bold text-center mb-8">
+            共创伙伴加入确认书
+          </h1>
+
+          <div class="space-y-5 leading-relaxed text-text-primary">
+            <p class="font-semibold">亲爱的伙伴：</p>
+
+            <p>
+              欢迎来到「浮晓 HXiaoStudio」的幕后。作为内部共创伙伴，也就是本团队的成员，你是这个账号的基石，而非过客。
+            </p>
+
+            <p class="font-semibold">在开启这段旅程之前，请确认：</p>
+
+            <p>
+              <strong>你加入本团队，即代表你已充分认可并愿意践行我们的章程和核心价值观——用普通人的视角看世界。</strong>
+            </p>
+
+            <p>为了维护我们这个「小家」的长久运转，我们需要明确彼此的权责：</p>
+
+            <!-- 一、我们的关系 -->
+            <h2 class="text-xl font-serif-cn font-semibold mt-8 mb-3">一、我们的关系：因热爱而团结攻坚</h2>
+            <ol class="list-decimal space-y-2 pl-6">
+              <li>你的加入是基于对账号的深度认同，属于<strong>核心志愿共创</strong>。</li>
+              <li>我们不是雇佣关系，我们是因热爱和同一份价值观而团结在一起的伙伴。</li>
+              <li>虽不设固定分工，但我们默认你对账号的发展负有比普通投稿者更深的责任感——<strong>你是这里的主人</strong>。</li>
+            </ol>
+
+            <!-- 二、版权与资产 -->
+            <h2 class="text-xl font-serif-cn font-semibold mt-8 mb-3">二、版权与资产</h2>
+            <p>
+              为了适应多样化的创作需求（纯原创、外部投稿、购买素材、二创授权等），我们对成品版权做如下分层界定：
+            </p>
+            <ol class="list-decimal space-y-3 pl-6">
+              <li>
+                <strong>关于个人素材与创作成果：</strong>
+                你自行拍摄的素材、撰写的原始稿件，<strong>版权仍归你个人所有</strong>。
+              </li>
+              <li>
+                <strong>关于成品发布权（账号稳定性）：</strong>
+                为了保证账号内容的连贯性和稳定性，经你参与剪辑、制作、排版并最终发布的最终成品，其<strong>在「浮晓 HXiao」账号平台上的发布权、运营权归账号团队所有</strong>。
+                <em>这意味着：即便未来你离开团队，账号依然有权保留并继续展示这些由你参与创作的视频/文章，这是我们共同历史的见证。</em>
+              </li>
+              <li>
+                <strong>关于个人展示：</strong>
+                你拥有将参与制作的成品放入个人作品集、在个人社交账号转载展示的权利（需注明「浮晓 HXiao共创作品」）。
+              </li>
+              <li>
+                <strong>关于作品的完整版权（全场景兼容）：</strong>
+                综上所述，经由你参与创作的作品，其版权归属视素材来源而定，我们将严格遵循以下原则：
+                <ul class="list-disc space-y-1 pl-6 mt-2">
+                  <li><strong>纯原创：</strong> 完整版权由<strong>本团队和你共同所有</strong>。</li>
+                  <li><strong>外部投稿：</strong> 按投稿协议，完整版权由<strong>本团队、参与创作的你、与原投稿者三方共同所有</strong>。</li>
+                  <li><strong>商业授权素材：</strong>（如团队资金购买的BGM、字体、图库等）我们拥有成品的衍生著作权，但<strong>必须严格遵循购买时的商业授权协议规定</strong>，我们仅拥有使用权，不拥有原素材的独立版权。</li>
+                  <li><strong>二创授权内容：</strong>（基于原版权方二创协议制作的内容）我们享有成品的版权，但具体的权利归属、行使范围及限制，<strong>均以原版权方给出的二创授权协议之规定为准</strong>。</li>
+                </ul>
+              </li>
+            </ol>
+
+            <!-- 三、协作方式 -->
+            <h2 class="text-xl font-serif-cn font-semibold mt-8 mb-3">三、协作方式：自由流动，全情投入</h2>
+            <ol class="list-decimal space-y-2 pl-6">
+              <li><strong>能力范围内贡献：</strong> 你凭心情和灵感，在能力范围内自由贡献剪辑、策划或建议。</li>
+              <li><strong>主导权：</strong> 当你认领某个项目或提出某个创意时，你就是该项目的「临时负责人」，拥有最大的创作自由度。</li>
+            </ol>
+
+            <!-- 四、退出机制 -->
+            <h2 class="text-xl font-serif-cn font-semibold mt-8 mb-3">四、退出机制</h2>
+            <ol class="list-decimal space-y-2 pl-6">
+              <li>随时可退。离开时，请将未发布的半成品、账号密码等运营物资交接清楚。</li>
+              <li><strong>友好离别：</strong> 离开后，请勿攻击团队或散布不利于账号的言论。</li>
+            </ol>
+
+            <!-- 五、结语 -->
+            <h2 class="text-xl font-serif-cn font-semibold mt-8 mb-3">五、结语</h2>
+            <p>我们因光而聚，愿我们在彼此的生命里，都留下一段温暖的印记。</p>
+          </div>
+
+        </article>
+
+        <!-- 在线签署区 -->
+        <section class="mt-8 fade-in-up delay-2">
+          <div class="bg-bg-main rounded-2xl p-8 border border-accent/30">
+            <h2 class="text-xl font-serif-cn font-bold text-center mb-2">在线签署</h2>
+            <p class="text-center text-text-secondary text-sm mb-6">
+              阅读并确认以上内容后，填写以下信息并生成确认书 PDF，随邮件发送即视为在线签署。
+            </p>
+
+            <div class="space-y-4 max-w-md mx-auto mb-8">
+              <div>
+                <label for="cf-field-name" class="block text-sm font-medium mb-1">确认人（昵称）</label>
+                <input id="cf-field-name" type="text"
+                  class="w-full px-4 py-2 bg-bg-sub border border-border/30 rounded-lg focus:border-accent focus:outline-none"
+                  placeholder="_______________" />
+              </div>
+              <div>
+                <label for="cf-field-date" class="block text-sm font-medium mb-1">确认日期</label>
+                <input id="cf-field-date" type="date"
+                  class="w-full px-4 py-2 bg-bg-sub border border-border/30 rounded-lg focus:border-accent focus:outline-none" />
+              </div>
+            </div>
+
+            <div class="text-center">
+              <button id="cf-print-btn" type="button"
+                class="w-full max-w-md px-6 py-3 bg-accent text-text-primary font-medium rounded-lg hover:bg-accent-sub transition-colors mb-6">
+                生成 / 下载确认书 PDF
+              </button>
+              <p class="text-sm text-text-secondary mb-2">
+                <strong>提交方式：</strong>请将生成的确认书 PDF 发送至
+              </p>
+              <a href="mailto:hxiao_studio@163.com" class="text-lg text-accent font-semibold hover:underline">
+                hxiao_studio@163.com
+              </a>
+              <p class="text-xs text-text-secondary mt-4">
+                邮件标题建议格式：「加入确认 - 你的昵称」。收到确认书后，我们将正式记录你的加入。
+              </p>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+
+    <!-- 打印 / PDF 专用区域（默认隐藏，仅在 window.print 时显示） -->
+    <div id="print-area-confirm">
+      <div class="print-header">
+        <img src="/assets/brand/HXiao_logo.png" alt="浮晓 HXiao Studio" />
+        <h1>共创伙伴加入确认书</h1>
+        <p class="print-meta">生成日期：<span id="cf-out-date"></span></p>
+      </div>
+
+      <p><strong>亲爱的伙伴：</strong></p>
+      <p>欢迎来到「浮晓 HXiaoStudio」的幕后。作为内部共创伙伴，也就是本团队的成员，你是这个账号的基石，而非过客。</p>
+
+      <p><strong>在开启这段旅程之前，请确认：</strong></p>
+      <p><strong>你加入本团队，即代表你已充分认可并愿意践行我们的章程和核心价值观——用普通人的视角看世界。</strong></p>
+      <p>为了维护我们这个「小家」的长久运转，我们需要明确彼此的权责：</p>
+
+      <h2>一、我们的关系：因热爱而团结攻坚</h2>
+      <div class="print-declaration">
+        <p>1. 你的加入是基于对账号的深度认同，属于<strong>核心志愿共创</strong>。</p>
+        <p>2. 我们不是雇佣关系，我们是因热爱和同一份价值观而团结在一起的伙伴。</p>
+        <p>3. 虽不设固定分工，但我们默认你对账号的发展负有比普通投稿者更深的责任感——<strong>你是这里的主人</strong>。</p>
+      </div>
+
+      <h2>二、版权与资产</h2>
+      <div class="print-declaration">
+        <p>为了适应多样化的创作需求（纯原创、外部投稿、购买素材、二创授权等），我们对成品版权做如下分层界定：</p>
+        <p>1. <strong>关于个人素材与创作成果：</strong>你自行拍摄的素材、撰写的原始稿件，<strong>版权仍归你个人所有</strong>。</p>
+        <p>2. <strong>关于成品发布权（账号稳定性）：</strong>为了保证账号内容的连贯性和稳定性，经你参与剪辑、制作、排版并最终发布的最终成品，其<strong>在「浮晓 HXiao」账号平台上的发布权、运营权归账号团队所有</strong>。这意味着：即便未来你离开团队，账号依然有权保留并继续展示这些由你参与创作的视频/文章，这是我们共同历史的见证。</p>
+        <p>3. <strong>关于个人展示：</strong>你拥有将参与制作的成品放入个人作品集、在个人社交账号转载展示的权利（需注明「浮晓 HXiao共创作品」）。</p>
+        <p>4. <strong>关于作品的完整版权（全场景兼容）：</strong>综上所述，经由你参与创作的作品，其版权归属视素材来源而定，我们将严格遵循以下原则：</p>
+        <p>　- <strong>纯原创：</strong> 完整版权由<strong>本团队和你共同所有</strong>。</p>
+        <p>　- <strong>外部投稿：</strong> 按投稿协议，完整版权由<strong>本团队、参与创作的你、与原投稿者三方共同所有</strong>。</p>
+        <p>　- <strong>商业授权素材：</strong>（如团队资金购买的BGM、字体、图库等）我们拥有成品的衍生著作权，但<strong>必须严格遵循购买时的商业授权协议规定</strong>，我们仅拥有使用权，不拥有原素材的独立版权。</p>
+        <p>　- <strong>二创授权内容：</strong>（基于原版权方二创协议制作的内容）我们享有成品的版权，但具体的权利归属、行使范围及限制，<strong>均以原版权方给出的二创授权协议之规定为准</strong>。</p>
+      </div>
+
+      <h2>三、协作方式：自由流动，全情投入</h2>
+      <div class="print-declaration">
+        <p>1. <strong>能力范围内贡献：</strong> 你凭心情和灵感，在能力范围内自由贡献剪辑、策划或建议。</p>
+        <p>2. <strong>主导权：</strong> 当你认领某个项目或提出某个创意时，你就是该项目的「临时负责人」，拥有最大的创作自由度。</p>
+      </div>
+
+      <h2>四、退出机制</h2>
+      <div class="print-declaration">
+        <p>1. 随时可退。离开时，请将未发布的半成品、账号密码等运营物资交接清楚。</p>
+        <p>2. <strong>友好离别：</strong> 离开后，请勿攻击团队或散布不利于账号的言论。</p>
+      </div>
+
+      <h2>五、结语</h2>
+      <div class="print-declaration">
+        <p>我们因光而聚，愿我们在彼此的生命里，都留下一段温暖的印记。</p>
+      </div>
+
+      <!-- 签署栏 -->
+      <div class="print-sign">
+        <p><strong>确认人：</strong><span id="cf-out-name"></span></p>
+        <p><strong>确认日期：</strong><span id="cf-out-confirm-date"></span></p>
+      </div>
+    </div>
+
+    <!-- 打印输出页脚（每页底部固定显示） -->
+    <p id="print-foot-confirm">
+      请将本确认书作为附件发送至 hxiao_studio@163.com
+    </p>
+
+    <!-- 淡入动画观察器 -->
+    <script>
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { root: null, rootMargin: '0px', threshold: 0.1 });
+
+      document.querySelectorAll('.fade-in-up').forEach(el => {
+        observer.observe(el);
+      });
+    </script>
+
+    <!-- 确认书 PDF 生成脚本：读取表单值 → 填入打印区 → 调用浏览器打印 -->
+    <script>
+      // 默认填入今天的日期
+      const today = new Date();
+      const pad = (n) => String(n).padStart(2, '0');
+      const todayStr = `${today.getFullYear()}-${pad(today.getMonth() + 1)}-${pad(today.getDate())}`;
+      document.getElementById('cf-field-date').value = todayStr;
+
+      // 中文日期格式化
+      const formatChineseDate = (value) => {
+        if (!value) return '（未填写）';
+        const [y, m, d] = value.split('-');
+        return `${y}年${parseInt(m, 10)}月${parseInt(d, 10)}日`;
+      };
+
+      document.getElementById('cf-print-btn').addEventListener('click', () => {
+        // 确认人
+        const name = (document.getElementById('cf-field-name')?.value || '').trim();
+        document.getElementById('cf-out-name').textContent = name || '（未填写）';
+
+        // 确认日期（中文格式）
+        const dateValue = document.getElementById('cf-field-date')?.value || '';
+        document.getElementById('cf-out-confirm-date').textContent = formatChineseDate(dateValue);
+
+        // 生成日期（页眉）
+        document.getElementById('cf-out-date').textContent =
+          new Date().toLocaleDateString('zh-CN');
+
+        // 进入打印模式 → 调用浏览器打印 → 完成后退出
+        document.body.classList.add('printing');
+        window.print();
+        window.addEventListener('afterprint', () => {
+          document.body.classList.remove('printing');
+        }, { once: true });
+      });
+    </script>
+  </body>
+</html>
