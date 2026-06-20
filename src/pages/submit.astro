@@ -244,6 +244,8 @@ const faqs = [
 
   <!-- 授权协议 PDF 生成脚本：读取表单值 → 填入打印区 → 调用浏览器打印 -->
   <script>
+    import { shouldBlockPdfOnMobile } from '../scripts/pdf-guard.js';
+
     const subFields = [
       ['sub-field-title', 'sub-out-title'],
       ['sub-field-type', 'sub-out-type'],
@@ -252,6 +254,12 @@ const faqs = [
     ];
 
 	    document.getElementById('sub-print-btn').addEventListener('click', () => {
+	      // 移动端不支持 window.print 转 PDF
+	      if (shouldBlockPdfOnMobile()) {
+	        alert('当前设备暂不支持在本网站上生成 PDF，请在 PC 端进行生成提交');
+	        return;
+	      }
+
 	      // 文本字段：取值并 trim，空值显示「（未填写）」
 	      subFields.forEach(([fieldId, outId]) => {
 	        const el = document.getElementById(fieldId);

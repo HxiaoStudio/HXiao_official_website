@@ -352,6 +352,8 @@ const faqs = [
 
   <!-- 申请书 PDF 生成脚本：读取表单值 → 填入打印区 → 调用浏览器打印 -->
   <script>
+    import { shouldBlockPdfOnMobile } from '../scripts/pdf-guard.js';
+
     const fields = [
       ['field-nickname', 'out-nickname'],
       ['field-contact', 'out-contact'],
@@ -365,6 +367,12 @@ const faqs = [
     ];
 
     document.getElementById('print-btn').addEventListener('click', () => {
+      // 移动端不支持 window.print 转 PDF
+      if (shouldBlockPdfOnMobile()) {
+        alert('当前设备暂不支持在本网站上生成 PDF，请在 PC 端进行生成提交');
+        return;
+      }
+
       // 文本字段：取值并 trim，空值显示「（未填写）」
       fields.forEach(([fieldId, outId]) => {
         const value = (document.getElementById(fieldId)?.value || '').trim();
