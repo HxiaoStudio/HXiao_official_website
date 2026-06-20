@@ -1,0 +1,28 @@
+# EditorConfig - 统一编辑器基础格式约定
+# https://editorconfig.org
+# 编辑器原生支持（VSCode/JetBrains 等），无需安装依赖。
+# 与 .prettierrc 配合：EditorConfig 管最基础的缩进/换行，Prettier 管完整格式化。
+
+root = true
+
+# 所有文件通用默认
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = space
+indent_size = 2
+
+# 源码文件统一 2 空格缩进（显式声明，避免个别编辑器误判）
+[*.{astro,ts,js,mjs,cjs,jsx,tsx,css,html,json,jsonc}]
+indent_size = 2
+
+# Markdown 保持 2 空格，但保留行尾两空格（Markdown 换行语义）
+[*.md]
+trim_trailing_whitespace = false
+indent_size = 2
+
+# YAML 配置文件统一 2 空格
+[*.{yml,yaml}]
+indent_size = 2

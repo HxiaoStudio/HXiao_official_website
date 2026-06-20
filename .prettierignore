@@ -1,0 +1,43 @@
+# Prettier 忽略清单
+# 这些目录/文件不参与格式化，保持原样。
+
+# ⚠️ .astro 文件暂由 EditorConfig 兜底（缩进/换行），不参与 Prettier 格式化。
+# 原因：prettier-plugin-astro 当前最新版 (0.14.1) 尚未适配 Astro 6，
+#       会遇到 .map() 表达式内 HTML 注释解析崩溃（生态空窗，非本项目问题）。
+# 待 prettier-plugin-astro 发布 Astro 6 适配版后，删除下面这一行即可全量启用。
+*.astro
+
+# 构建产物（gitignore，但保险起见再忽略）
+dist/
+.astro/
+
+# 依赖
+node_modules/
+
+# 静态资源：二进制（图片/字体/二维码）不能格式化
+public/assets/
+SiYuanSongTiRegular/
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.webp
+*.ico
+*.woff
+*.woff2
+*.ttf
+*.otf
+
+# 业务/法务文档：保持手写中文排版，不被格式化破坏换行
+文档/*.md
+
+# 锁文件
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+
+# 第三方与工具配置目录
+.trae/
+.qoder/
+.vscode/
+.github/
