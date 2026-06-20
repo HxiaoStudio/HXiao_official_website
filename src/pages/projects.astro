@@ -1,34 +1,49 @@
 ---
-// projects.astro - 项目页面
+// projects.astro - 项目聚合页
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-const features = [
-  { icon: '🎨', name: '可视化色彩分析', desc: '可拖动取色点，支持 HSB/LAB/HSL/CMYK/RGB' },
-  { icon: '✨', name: '智能配色生成', desc: '5种专业方案（同色系/邻近色/互补色/分离补色/双补色）' },
-  { icon: '⭐', name: '配色方案收藏', desc: '收藏管理，支持 JSON/ASE/图片导出' },
-  { icon: '📚', name: '内置色彩库', desc: '13套开源方案，661组色卡' },
-  { icon: '👁', name: '配色预览', desc: '9种场景（混合/UI/网页/插画/排版/品牌/海报/图案/杂志）' },
-  { icon: '📊', name: '明度分析', desc: '9级明度分区，直方图可视化' },
-  { icon: '🌈', name: '渐变生成', desc: '双色/单色梯度，4种颜色空间插值' },
-  { icon: '🌐', name: '多语言支持', desc: '简中/繁中/英/日/法/俄' },
-  { icon: '🌓', name: '明暗主题', desc: '深色/浅色模式切换' },
-];
+interface ProjectCard {
+  name: string;
+  type: string;
+  status: string;
+  statusClass: string;
+  description: string;
+  license: string;
+  platform: string;
+  websiteUrl: string;
+  githubUrl: string;
+  giteeUrl: string;
+}
 
-const stats = [
-  { value: 6, suffix: '+', label: '配色方案' },
-  { value: 347, suffix: '+', label: '色卡组' },
-  { value: 4, suffix: '+', label: '预览场景' },
-  { value: 661, suffix: ' 组', label: '内置色卡' },
-];
-
-const story = [
-  { phase: '最初的契机', desc: '想要分析优秀摄影师作品的色相和明度特点，市面上缺乏好用的一站式工具' },
-  { phase: '不断演进', desc: '从色彩分析+明度分析，逐步发展为完整的本地配色解决方案' },
-  { phase: '参考与致敬', desc: '借鉴了众多优秀的在线配色工具' },
+const projectList: ProjectCard[] = [
+  {
+    name: '取色卡 Color Card',
+    type: '开源工具',
+    status: '已发布',
+    statusClass: 'bg-success/20 text-success',
+    description: '一站式本地色彩工具，为摄影师和设计师打造。完全免费、无需联网、无需注册、隐私安全。',
+    license: 'GPL-3.0',
+    platform: 'Mac M系列 / Win 10/11 X64',
+    websiteUrl: 'https://qingshangongzai.github.io/Color_Card',
+    githubUrl: 'https://github.com/QingshanGongzai/Color_Card',
+    giteeUrl: 'https://gitee.com/HxiaoStudio/Color_Card',
+  },
+  {
+    name: 'BetterGI 星轨',
+    type: '开源工具',
+    status: '已发布',
+    statusClass: 'bg-success/20 text-success',
+    description: '专为 BetterGI 打造的键鼠脚本生成与管理工具，基于 PyQt6 开发，提供可视化界面，用于游戏内延时摄影创作。',
+    license: 'GPL-3.0',
+    platform: 'Windows 10/11 X64',
+    websiteUrl: '',
+    githubUrl: 'https://github.com/qingshangongzai/BetterGI_StellTrack',
+    giteeUrl: 'https://gitee.com/qingshangongzai/BetterGI_StellTrack',
+  },
 ];
 ---
 
-<BaseLayout title="项目 - 取色卡 Color Card - 浮晓 HXiao">
+<BaseLayout title="项目 - 浮晓 HXiao" description="浮晓 HXiao 旗下的开源创作：取色卡 Color Card、BetterGI 星轨等开源项目，完全免费、自由使用。">
   <!-- 页面标题 -->
   <section class="py-16 md:py-24 bg-bg-main">
     <div class="container-main text-center">
@@ -36,201 +51,110 @@ const story = [
         项目
       </h1>
       <p class="text-text-secondary max-w-2xl mx-auto fade-in-up delay-1">
-        我们的开源创作
+        浮晓 HXiao 旗下的开源创作，每一个项目都承载着我们的热爱与探索
       </p>
     </div>
   </section>
 
-  <!-- 项目概览 -->
+  <!-- 项目卡片网格 -->
   <section class="section-padding bg-bg-sub">
-    <div class="container-main max-w-4xl">
-      <div class="bg-bg-main rounded-2xl p-8 md:p-12 border border-border/20 fade-in-up">
-        <div class="flex flex-col md:flex-row md:items-start gap-6">
-          <div class="flex-1">
-            <h2 class="text-2xl font-serif-cn font-bold mb-4">取色卡 Color Card</h2>
-            <p class="text-text-secondary mb-6">
-              一站式色彩工具，为摄影师和设计师打造。完全免费、无需联网、无需注册、隐私安全。
-            </p>
-            
-            <div class="space-y-3 text-sm">
-              <div class="flex items-center gap-2">
-                <span class="text-border">●</span>
-                <span>开源协议：GPL-3.0</span>
+    <div class="container-main max-w-5xl">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 fade-in-up delay-1">
+
+        {projectList.map((project, index) => {
+          return (
+            <div class="bg-bg-main rounded-2xl border border-border/20 overflow-hidden flex flex-col card-hover fade-in-up" style={`transition-delay: ${index * 0.1}s`}>
+              <!-- 卡片头部：类型 + 状态 -->
+              <div class="flex items-center justify-between px-6 pt-5">
+                <span class="px-2.5 py-1 bg-accent-sub/30 text-accent text-xs font-medium rounded-full">
+                  {project.type}
+                </span>
+                <span class:list={['px-2.5 py-1 text-xs font-medium rounded-full', project.statusClass]}>
+                  {project.status}
+                </span>
               </div>
-              <div class="flex items-center gap-2">
-                <span class="text-border">●</span>
-                <span>目标用户：摄影师、设计师</span>
+
+              <!-- 卡片主体 -->
+              <div class="flex-1 px-6 pt-4 pb-2">
+                <h2 class="text-xl font-serif-cn font-bold mb-3">{project.name}</h2>
+                <p class="text-sm text-text-secondary leading-relaxed mb-4">{project.description}</p>
+
+                <!-- 项目信息 -->
+                <div class="space-y-2 text-sm text-text-secondary">
+                  <div class="flex items-center gap-2">
+                    <span class="text-border">●</span>
+                    <span>开源协议：{project.license}</span>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <span class="text-border">●</span>
+                    <span>支持平台：{project.platform}</span>
+                  </div>
+                </div>
               </div>
-              <div class="flex items-center gap-2">
-                <span class="text-border">●</span>
-                <span>支持平台：Mac M系列 / Win 10/11 X64</span>
+
+              <!-- 卡片底部：链接按钮 -->
+              <div class="px-6 pb-6 pt-4 mt-auto border-t border-border/10">
+                <div class="flex flex-wrap gap-2">
+                  {project.websiteUrl ? (
+                    <a
+                      href={project.websiteUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="btn-glow flex-1 px-4 py-2 bg-accent text-text-primary text-sm font-medium rounded-full text-center hover:bg-accent/80 transition-all"
+                    >
+                      访问官网
+                    </a>
+                  ) : null}
+                  {project.githubUrl ? (
+                    <a
+                      href={project.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="px-4 py-2 border border-border/40 text-text-secondary text-sm font-medium rounded-full text-center hover:border-accent hover:text-text-primary transition-all"
+                    >
+                      GitHub
+                    </a>
+                  ) : null}
+                  {project.giteeUrl ? (
+                    <a
+                      href={project.giteeUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="px-4 py-2 border border-border/40 text-text-secondary text-sm font-medium rounded-full text-center hover:border-accent hover:text-text-primary transition-all"
+                    >
+                      Gitee
+                    </a>
+                  ) : null}
+                </div>
               </div>
             </div>
+          );
+        })}
+
+        <!-- 虚位以待占位卡片 -->
+        <a href="/join" class="group bg-bg-main rounded-2xl border-2 border-dashed border-accent/30 flex flex-col items-center justify-center p-8 min-h-[280px] hover:border-accent/60 transition-all fade-in-up delay-3">
+          <div class="w-16 h-16 rounded-full bg-accent-sub/20 flex items-center justify-center mb-4 group-hover:bg-accent-sub/40 transition-colors">
+            <span class="text-3xl text-accent">+</span>
           </div>
-          
-          <div class="flex flex-col gap-3">
-            <a 
-              href="https://qingshangongzai.github.io/Color_Card" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              class="btn-glow px-6 py-3 bg-accent text-text-primary font-medium rounded-full text-center hover:bg-accent/80 transition-all"
-            >
-              访问官网
-            </a>
-            <a 
-              href="https://github.com/QingshanGongzai/Color_Card" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              class="px-6 py-3 border border-border text-text-primary font-medium rounded-full text-center hover:border-accent transition-all"
-            >
-              GitHub 仓库
-            </a>
-          </div>
-        </div>
+          <h3 class="text-lg font-serif-cn font-semibold mb-2">更多项目</h3>
+          <p class="text-sm text-text-secondary text-center">
+            虚位以待，等待共创者一起发起
+          </p>
+          <span class="mt-4 text-sm text-accent">加入共创 →</span>
+        </a>
       </div>
     </div>
   </section>
 
-  <!-- 功能亮点 -->
-  <section class="section-padding bg-bg-main">
-    <div class="container-main">
-      <h2 class="text-2xl md:text-3xl font-serif-cn text-center mb-12 fade-in-up">
-        9 大功能亮点
-      </h2>
-      
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {features.map((feature, index) => (
-          <div class="card-hover bg-bg-sub rounded-xl p-6 border border-border/20 fade-in-up" style={`transition-delay: ${index * 0.05}s`}>
-            <span class="text-3xl">{feature.icon}</span>
-            <h3 class="text-lg font-semibold mt-4 mb-2">{feature.name}</h3>
-            <p class="text-sm text-text-secondary">{feature.desc}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- 数据展示 -->
-  <section class="py-16 bg-bg-sub">
-    <div class="container-main">
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto text-center">
-        {stats.map((stat, index) => (
-          <div class="fade-in-up" style={`transition-delay: ${index * 0.1}s`}>
-            <div class="text-3xl md:text-4xl font-serif-cn font-bold text-accent">
-              <span class="counter" data-target={stat.value}>0</span>{stat.suffix}
-            </div>
-            <p class="text-sm text-text-secondary mt-2">{stat.label}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- 下载入口 -->
-  <section class="section-padding bg-bg-main">
-    <div class="container-main max-w-3xl text-center">
-      <h2 class="text-2xl md:text-3xl font-serif-cn mb-8 fade-in-up">
-        下载取色卡
-      </h2>
-      
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 fade-in-up delay-1">
-        <div class="bg-bg-sub rounded-xl p-8 border border-border/20 card-hover">
-          <div class="text-4xl mb-4">🍎</div>
-          <h3 class="font-semibold mb-2">Mac 版</h3>
-          <p class="text-sm text-text-secondary mb-4">支持 M系列芯片</p>
-          <a 
-            href="https://github.com/QingshanGongzai/Color_Card/releases" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            class="btn-glow inline-block px-6 py-2 bg-accent text-text-primary rounded-full text-sm font-medium hover:bg-accent/80 transition-all"
-          >
-            下载安装包
-          </a>
-        </div>
-        
-        <div class="bg-bg-sub rounded-xl p-8 border border-border/20 card-hover">
-          <div class="text-4xl mb-4">🪟</div>
-          <h3 class="font-semibold mb-2">Windows 版</h3>
-          <p class="text-sm text-text-secondary mb-4">支持 Win 10/11 X64</p>
-          <a 
-            href="https://github.com/QingshanGongzai/Color_Card/releases" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            class="btn-glow inline-block px-6 py-2 bg-accent text-text-primary rounded-full text-sm font-medium hover:bg-accent/80 transition-all"
-          >
-            下载安装包
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 开源与版权 -->
-  <section class="py-16 bg-bg-sub">
-    <div class="container-main max-w-3xl text-center">
-      <blockquote class="text-lg font-serif-cn italic text-text-primary mb-4 fade-in-up">
-        取色卡采用 <strong>GPL-3.0</strong> 开源协议，完全免费，无需联网，无需注册，隐私安全。
-      </blockquote>
-      <p class="text-text-secondary fade-in-up delay-1">
-        我们相信，优秀的工具应该人人可用。
-      </p>
-    </div>
-  </section>
-
-  <!-- 项目故事 -->
-  <section class="section-padding bg-bg-main">
+  <!-- 开源宣言 -->
+  <section class="py-16 bg-bg-main text-center">
     <div class="container-main max-w-3xl">
-      <h2 class="text-2xl md:text-3xl font-serif-cn text-center mb-12 fade-in-up">
-        项目故事
-      </h2>
-      
-      <div class="space-y-6">
-        {story.map((item, index) => (
-          <div class="flex items-start gap-4 fade-in-up" style={`transition-delay: ${index * 0.1}s`}>
-            <span class="flex-shrink-0 w-8 h-8 rounded-full bg-accent-sub/30 flex items-center justify-center text-accent text-sm font-medium">
-              {index + 1}
-            </span>
-            <div>
-              <h3 class="font-semibold mb-1">{item.phase}</h3>
-              <p class="text-sm text-text-secondary">{item.desc}</p>
-            </div>
-          </div>
-        ))}
-      </div>
+      <blockquote class="text-lg font-serif-cn italic text-text-primary mb-4 fade-in-up">
+        我们相信，优秀的工具应该人人可用，优秀的创作应该属于所有人。
+      </blockquote>
+      <p class="text-text-secondary text-sm fade-in-up delay-1">
+        浮晓 HXiao 旗下所有项目均遵循开源精神，任何人可以自由使用、修改和分发。
+      </p>
     </div>
   </section>
 </BaseLayout>
-
-<script>
-  // 数字计数动效
-  const counters = document.querySelectorAll('.counter');
-  
-  const counterObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const el = entry.target as HTMLElement;
-        const target = parseInt(el.dataset.target || '0');
-        const duration = 1500;
-        const startTime = performance.now();
-        
-        function update(currentTime: number) {
-          const elapsed = currentTime - startTime;
-          const progress = Math.min(elapsed / duration, 1);
-          const easeOut = 1 - Math.pow(1 - progress, 3);
-          el.textContent = String(Math.floor(target * easeOut));
-          
-          if (progress < 1) {
-            requestAnimationFrame(update);
-          } else {
-            el.textContent = String(target);
-          }
-        }
-        
-        requestAnimationFrame(update);
-        counterObserver.unobserve(el);
-      }
-    });
-  }, { threshold: 0.5 });
-  
-  counters.forEach(counter => counterObserver.observe(counter));
-</script>
