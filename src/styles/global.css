@@ -261,13 +261,10 @@ a:hover {
    申请书打印 / PDF 专用样式
    ======================================== */
 
-/* 屏幕上始终隐藏打印区与打印页脚，只在 window.print 时显示 */
+/* 屏幕上始终隐藏打印区，只在 window.print 时显示 */
 #print-area,
-#print-foot,
 #print-area-submit,
-#print-foot-submit,
-#print-area-confirm,
-#print-foot-confirm {
+#print-area-confirm {
   display: none;
 }
 
@@ -418,21 +415,6 @@ a:hover {
 	  display: block !important;
 	  padding: 0;
 	  max-width: none;
-	}
-	/* 页脚固定在每页底部 */
-	body.printing #print-foot,
-	body.printing #print-foot-submit,
-	body.printing #print-foot-confirm {
-	  display: block !important;
-	  position: fixed;
-	  bottom: 0;
-	  left: 0;
-	  right: 0;
-	  text-align: center;
-	  font-size: 0.8rem;
-	  color: #6b6b7b;
-	  border-top: 1px solid #C4BAD2;
-	  padding-top: 0.4rem;
 	}
   /* 避免淡入动画导致内容不可见 */
   .fade-in-up {
